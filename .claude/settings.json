@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:kingcontractor.com)",
+      "Read(//c/Users/chris/.claude/skills/code-review/**)",
+      "Read(//c/Users/chris/.claude/skills/error-memory/**)"
+    ]
+  }
+}
