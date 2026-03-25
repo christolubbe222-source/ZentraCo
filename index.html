@@ -2850,47 +2850,35 @@ void main(void) {
           svg.setAttribute('height', pageH);
           wrapper.style.height = pageH + 'px';
 
+          // Beam flows down the LEFT MARGIN; only scoops toward anchors
+          const RAIL      = Math.max(60, W * 0.07); // ~7% from left
+          const MAX_SCOOP = 220; // max px the beam ventures from the rail
+
           const waypoints  = [];
-          const anchorMeta = []; // {docCenterY} for timing
+          const anchorMeta = [];
 
-          // Entry — top-left near hero
-          waypoints.push({ x: -40, y: 220 });
+          waypoints.push({ x: RAIL, y: 60 }); // entry
 
-          ANCHORS.forEach(({ sel, type }) => {
+          ANCHORS.forEach(({ sel }) => {
             const el = document.querySelector(sel);
             if (!el) return;
-            const rect   = el.getBoundingClientRect();
-            const docTop = rect.top  + window.scrollY;
-            const docBot = rect.bottom + window.scrollY;
-            const dL     = rect.left;
-            const dR     = rect.right;
-            const cx     = dL + rect.width  / 2;
-            const cy     = docTop + rect.height / 2;
-            const pad    = 24;
+            const rect      = el.getBoundingClientRect();
+            const docTop    = rect.top    + window.scrollY;
+            const docBot    = rect.bottom + window.scrollY;
+            const cy        = docTop + rect.height / 2;
+            const underlineY = docBot + 12;
 
-            let anchorDocY = cy; // svg path sampling position
-            let triggerY   = cy; // scroll trigger position (always element center)
+            // Scoop toward left edge of element, capped so we stay out of cards
+            const scoopX = Math.min(rect.left + 10, RAIL + MAX_SCOOP);
 
-            if (type === 'underline') {
-              waypoints.push({ x: dL  - 60,  y: cy });
-              waypoints.push({ x: dL  - pad, y: docTop + rect.height + 10 });
-              waypoints.push({ x: cx,        y: docTop + rect.height + 14 });
-              waypoints.push({ x: dR  + pad, y: docTop + rect.height + 10 });
-              waypoints.push({ x: dR  + 60,  y: cy });
-              anchorDocY = docTop + rect.height + 14; // where on path to sample
-              triggerY   = cy;                         // when element center hits mid-viewport
-            } else {
-              waypoints.push({ x: cx,        y: docTop - pad });
-              waypoints.push({ x: dR  + 60,  y: cy });
-              waypoints.push({ x: cx,        y: docBot + pad });
-              anchorDocY = cy;
-              triggerY   = cy;
-            }
+            waypoints.push({ x: RAIL,   y: cy - 60    }); // approach on rail
+            waypoints.push({ x: scoopX, y: underlineY }); // dip toward element
+            waypoints.push({ x: RAIL,   y: cy + 80    }); // return to rail
 
-            anchorMeta.push({ docCenterY: anchorDocY, triggerY });
+            anchorMeta.push({ docCenterY: underlineY, triggerY: cy });
           });
 
-          waypoints.push({ x: W / 2, y: pageH + 60 });
+          waypoints.push({ x: RAIL, y: pageH - 40 }); // exit
 
           const d = catmullToBezier(waypoints);
           beamPath.setAttribute('d', d);
@@ -2898,32 +2886,23 @@ void main(void) {
           totalLength = beamPath.getTotalLength();
           beamPath.style.strokeDasharray  = totalLength;
           beamPath.style.strokeDashoffset = totalLength;
-          beamDot.setAttribute('cy', '-200'); // hide until scroll
+          beamDot.setAttribute('cy', '-200');
 
-          /* ── Build scroll map: beam reaches anchor when anchor is at viewport center ── */
-          // anchor triggers when scrollY = anchorDocY - winH/2
+          /* Build scroll map */
           const map = [{ scroll: 0, drawn: 0 }];
-
-          // Re-query to map anchor index → path element - find which anchor index corresponds
-          // to which waypoint center by sampling path near each anchor's doc position
           let anchorIdx = 0;
           ANCHORS.forEach(({ sel }) => {
             const el = document.querySelector(sel);
             if (!el) return;
-            const meta = anchorMeta[anchorIdx++];
+            const meta  = anchorMeta[anchorIdx++];
             if (!meta) return;
-            const rect     = el.getBoundingClientRect();
-            const docCx    = rect.left + rect.width / 2 + window.scrollX;
-            const docCy    = meta.docCenterY;
-            const pLen     = pathLenNear(docCx, docCy);
-            // Trigger: element CENTER at viewport center
-            const trigger  = Math.max(0, meta.triggerY - winH * 0.5);
+            const rect  = el.getBoundingClientRect();
+            const docCx = rect.left + rect.width / 2 + window.scrollX;
+            const pLen  = pathLenNear(docCx, meta.docCenterY);
+            const trigger = Math.max(0, meta.triggerY - winH * 0.5);
             map.push({ scroll: trigger, drawn: pLen });
           });
-
-          const maxScroll = pageH - winH;
-          map.push({ scroll: maxScroll, drawn: totalLength });
-          // Sort ascending by scroll
+          map.push({ scroll: pageH - winH, drawn: totalLength });
           map.sort((a, b) => a.scroll - b.scroll);
           scrollMap = map;
           built = true;
