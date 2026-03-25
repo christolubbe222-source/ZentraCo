@@ -1472,6 +1472,21 @@
         text-align: center !important;
       }
 
+      /* Target the inner flex div in case-section that has inline space-between */
+      .case-section .section-header > div[style],
+      .systems .section-header[style] {
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        width: 100%;
+      }
+
+      .case-section h2.section-title,
+      .case-section .section-label {
+        text-align: center !important;
+      }
+
       .quality-seal-container {
         margin-left: 0 !important;
         justify-content: center;
