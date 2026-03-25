@@ -1030,7 +1030,7 @@
 
     .who-list li {
       padding: 32px;
-      background: rgba(255, 255, 255, 0.02);
+      background: rgba(8, 8, 16, 0.95);
       border: 1px solid var(--border);
       font-size: 18px;
       font-family: 'Barlow Condensed', sans-serif;
@@ -1913,6 +1913,26 @@
     .trust-bar, footer {
       position: relative;
       z-index: 3;
+    }
+
+    /* Opaque masking backgrounds to hide the beam behind transparent text cards */
+    .contrast-card,
+    .who-grid > div:first-child,
+    .founder-grid > div:last-child {
+      background: rgba(8, 8, 16, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      padding: 40px;
+    }
+
+    @media (max-width: 900px) {
+      .contrast-card,
+      .who-grid > div:first-child,
+      .founder-grid > div:last-child {
+        padding: 24px;
+      }
     }
   </style>
 </head>
