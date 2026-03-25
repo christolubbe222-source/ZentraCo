@@ -2784,6 +2784,7 @@ void main(void) {
         const beamDot  = document.getElementById('scrollBeamDot');
         const wrapper  = document.getElementById('beamWrapper');
         if (!svg || !beamPath || !beamDot || !wrapper) return;
+        if (window.innerWidth <= 900) return; // skip on mobile for performance
 
         const ANCHORS = [
           { sel: '.hero .btn-primary',        type: 'underline' },
