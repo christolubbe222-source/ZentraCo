@@ -1418,6 +1418,23 @@
         width: 100%;
       }
 
+      /* Mobile: center the phil-left text block */
+      .phil-left {
+        text-align: center;
+      }
+
+      .phil-label {
+        text-align: center;
+      }
+
+      .phil-title {
+        text-align: center;
+      }
+
+      .phil-body {
+        text-align: center;
+      }
+
       .who-section {
         padding: 80px 20px;
       }
@@ -1445,6 +1462,23 @@
 
       .systems-grid {
         grid-template-columns: 1fr;
+      }
+
+      /* Mobile: section headers with quality seals should stack and center */
+      .section-header[style] {
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+      }
+
+      .quality-seal-container {
+        margin-left: 0 !important;
+        justify-content: center;
+      }
+
+      /* Center who-section title */
+      .who-grid .reveal:first-child {
+        text-align: center;
       }
 
       .testimonials-section {
@@ -1802,6 +1836,68 @@
         gap: 20px;
         text-align: center;
       }
+
+      /* Mobile: footer brand content left-aligned, address above socials */
+      .footer-brand {
+        align-items: flex-start;
+        text-align: left;
+      }
+
+      .footer-address {
+        text-align: left;
+      }
+
+      .footer-socials {
+        justify-content: flex-start;
+      }
+    }
+
+    /* ── TRACING BEAM ── */
+    .tracing-beam {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 50;
+      overflow: hidden;
+    }
+
+    .tracing-beam-line {
+      position: absolute;
+      left: -100%;
+      width: 60%;
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(70, 130, 180, 0) 10%,
+        rgba(93, 158, 203, 0.6) 40%,
+        rgba(0, 180, 255, 1) 50%,
+        rgba(93, 158, 203, 0.6) 60%,
+        rgba(70, 130, 180, 0) 90%,
+        transparent 100%
+      );
+      filter: blur(0.5px);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .tracing-beam-glow {
+      position: absolute;
+      left: 0;
+      width: 100px;
+      height: 60px;
+      background: radial-gradient(
+        ellipse at center,
+        rgba(0, 180, 255, 0.15) 0%,
+        transparent 70%
+      );
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s ease;
     }
   </style>
 </head>
@@ -1810,6 +1906,12 @@
 
   <div class="cursor" id="cursor"></div>
   <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- TRACING BEAM -->
+  <div class="tracing-beam" id="tracingBeam" aria-hidden="true">
+    <div class="tracing-beam-line" id="tracingBeamLine"></div>
+    <div class="tracing-beam-glow" id="tracingBeamGlow"></div>
+  </div>
 
   <canvas id="particleCanvas"></canvas>
 
@@ -2651,6 +2753,104 @@ void main(void) {
         });
       }, { threshold: 0.15 });
       document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+      // ── TRACING BEAM ──
+      (function () {
+        const beamLine = document.getElementById('tracingBeamLine');
+        const beamGlow = document.getElementById('tracingBeamGlow');
+        if (!beamLine || !beamGlow) return;
+
+        // Beam travels along a set of vertical positions (y-coords as % of viewport)
+        // triggered by scroll progress through the page
+        let lastScrollY = -1;
+        let beamVisible = false;
+        let beamPos = 0; // 0..1 = top..bottom of viewport for current line
+        let animFrame = null;
+        let hideTimer = null;
+
+        // Bezier path: beam sweeps across from left edge to right edge at a given y
+        function positionBeam(yFraction) {
+          const yPx = Math.round(yFraction * window.innerHeight);
+          beamLine.style.top = yPx + 'px';
+          beamGlow.style.top = yPx + 'px';
+        }
+
+        function animateBeamSweep(yFraction) {
+          positionBeam(yFraction);
+
+          // Reset position instantly then sweep
+          beamLine.style.transition = 'none';
+          beamLine.style.left = '-60%';
+          beamLine.style.opacity = '1';
+          beamGlow.style.opacity = '0.9';
+          beamGlow.style.left = '0px';
+
+          // Force reflow
+          void beamLine.offsetWidth;
+
+          // Sweep across
+          const duration = 900; // ms
+          const start = performance.now();
+
+          function sweep(now) {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            // Ease in-out
+            const ease = progress < 0.5
+              ? 2 * progress * progress
+              : -1 + (4 - 2 * progress) * progress;
+
+            const xPct = ease * 160 - 60; // sweep from -60% to +100%
+            beamLine.style.left = xPct + '%';
+            beamGlow.style.left = ((ease * 160)) + '%';
+
+            if (progress < 1) {
+              animFrame = requestAnimationFrame(sweep);
+            } else {
+              // Fade out
+              beamLine.style.transition = 'opacity 0.4s ease';
+              beamGlow.style.transition = 'opacity 0.4s ease';
+              beamLine.style.opacity = '0';
+              beamGlow.style.opacity = '0';
+              beamVisible = false;
+            }
+          }
+          animFrame = requestAnimationFrame(sweep);
+        }
+
+        // Pick a y position based on scroll
+        function getBeamY() {
+          // Beam fires at a position 15-85% down the viewport, weighted toward center
+          return 0.2 + Math.random() * 0.6;
+        }
+
+        let lastBeamTime = 0;
+        const BEAM_COOLDOWN = 1200; // ms between beams
+
+        function onScroll() {
+          const now = performance.now();
+          const scrollY = window.pageYOffset;
+          const delta = Math.abs(scrollY - lastScrollY);
+
+          // Only fire when scrolling a meaningful amount
+          if (delta > 40 && !beamVisible && (now - lastBeamTime) > BEAM_COOLDOWN) {
+            lastBeamTime = now;
+            beamVisible = true;
+            if (animFrame) cancelAnimationFrame(animFrame);
+            if (hideTimer) clearTimeout(hideTimer);
+            animateBeamSweep(getBeamY());
+          }
+          lastScrollY = scrollY;
+        }
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+
+        // Also fire once after short delay on page load
+        setTimeout(() => {
+          beamVisible = true;
+          animateBeamSweep(0.45);
+        }, 1800);
+      })();
 
     })();
   </script>
