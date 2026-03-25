@@ -49,6 +49,7 @@
       font-weight: 300;
       overflow-x: hidden;
       cursor: none;
+      position: relative;
     }
 
     /* ── CUSTOM CURSOR ── */
@@ -1852,52 +1853,37 @@
       }
     }
 
-    /* ── TRACING BEAM ── */
-    .tracing-beam {
-      position: fixed;
+    /* ── SCROLL BEAM SVG ── */
+    #scrollBeamSvg {
+      position: absolute;
       top: 0;
       left: 0;
       width: 100%;
-      height: 100%;
       pointer-events: none;
-      z-index: 50;
-      overflow: hidden;
+      z-index: 2;
+      overflow: visible;
     }
 
-    .tracing-beam-line {
-      position: absolute;
-      left: -100%;
-      width: 60%;
-      height: 1px;
-      background: linear-gradient(
-        to right,
-        transparent 0%,
-        rgba(70, 130, 180, 0) 10%,
-        rgba(93, 158, 203, 0.6) 40%,
-        rgba(0, 180, 255, 1) 50%,
-        rgba(93, 158, 203, 0.6) 60%,
-        rgba(70, 130, 180, 0) 90%,
-        transparent 100%
-      );
-      filter: blur(0.5px);
-      opacity: 0;
-      transition: opacity 0.4s ease;
+    #scrollBeamPath {
+      fill: none;
+      stroke: rgba(0, 200, 255, 0.9);
+      stroke-width: 2px;
+      stroke-linecap: round;
+      filter: drop-shadow(0 0 6px rgba(0,200,255,0.9)) drop-shadow(0 0 18px rgba(0,160,220,0.5));
     }
 
-    .tracing-beam-glow {
+    #scrollBeamDot {
+      fill: rgba(0, 220, 255, 1);
+      filter: drop-shadow(0 0 8px rgba(0,220,255,1)) drop-shadow(0 0 20px rgba(0,180,255,0.7));
+    }
+
+    .beam-wrapper {
       position: absolute;
+      top: 0;
       left: 0;
-      width: 100px;
-      height: 60px;
-      background: radial-gradient(
-        ellipse at center,
-        rgba(0, 180, 255, 0.15) 0%,
-        transparent 70%
-      );
-      transform: translate(-50%, -50%);
+      width: 100%;
       pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.4s ease;
+      z-index: 2;
     }
   </style>
 </head>
@@ -1907,10 +1893,18 @@
   <div class="cursor" id="cursor"></div>
   <div class="cursor-ring" id="cursorRing"></div>
 
-  <!-- TRACING BEAM -->
-  <div class="tracing-beam" id="tracingBeam" aria-hidden="true">
-    <div class="tracing-beam-line" id="tracingBeamLine"></div>
-    <div class="tracing-beam-glow" id="tracingBeamGlow"></div>
+  <!-- SCROLL BEAM -->
+  <div class="beam-wrapper" id="beamWrapper" aria-hidden="true">
+    <svg id="scrollBeamSvg" aria-hidden="true">
+      <defs>
+        <filter id="beamGlow">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <path id="scrollBeamPath" />
+      <circle id="scrollBeamDot" r="5" cx="0" cy="0" />
+    </svg>
   </div>
 
   <canvas id="particleCanvas"></canvas>
@@ -2754,102 +2748,128 @@ void main(void) {
       }, { threshold: 0.15 });
       document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-      // ── TRACING BEAM ──
+      // ── SCROLL-DRIVEN SVG BEAM ──
       (function () {
-        const beamLine = document.getElementById('tracingBeamLine');
-        const beamGlow = document.getElementById('tracingBeamGlow');
-        if (!beamLine || !beamGlow) return;
+        const svg = document.getElementById('scrollBeamSvg');
+        const beamPath = document.getElementById('scrollBeamPath');
+        const beamDot = document.getElementById('scrollBeamDot');
+        const wrapper = document.getElementById('beamWrapper');
+        if (!svg || !beamPath || !beamDot || !wrapper) return;
 
-        // Beam travels along a set of vertical positions (y-coords as % of viewport)
-        // triggered by scroll progress through the page
-        let lastScrollY = -1;
-        let beamVisible = false;
-        let beamPos = 0; // 0..1 = top..bottom of viewport for current line
-        let animFrame = null;
-        let hideTimer = null;
+        // Selectors of elements the beam should flow through/underline
+        const ANCHORS = [
+          { sel: '.hero .btn-primary',          type: 'underline' },
+          { sel: '.guarantee-container',         type: 'arc' },
+          { sel: '.phil-stat:nth-child(1)',       type: 'arc' },
+          { sel: '.phil-stat:nth-child(3)',       type: 'arc' },
+          { sel: '.systems .section-header h2',   type: 'underline' },
+          { sel: '#case-studies .btn-primary',    type: 'underline' },
+          { sel: '.cta-title',                    type: 'underline' },
+          { sel: '.cta-section .btn-primary',     type: 'underline' },
+        ];
 
-        // Bezier path: beam sweeps across from left edge to right edge at a given y
-        function positionBeam(yFraction) {
-          const yPx = Math.round(yFraction * window.innerHeight);
-          beamLine.style.top = yPx + 'px';
-          beamGlow.style.top = yPx + 'px';
+        let pathData = '';
+        let totalLength = 0;
+        let built = false;
+
+        // Catmull-Rom to cubic bezier for smooth organic curves
+        function catmullToBezier(pts) {
+          let d = `M ${pts[0].x} ${pts[0].y}`;
+          for (let i = 0; i < pts.length - 1; i++) {
+            const p0 = pts[Math.max(i - 1, 0)];
+            const p1 = pts[i];
+            const p2 = pts[i + 1];
+            const p3 = pts[Math.min(i + 2, pts.length - 1)];
+            const cp1x = p1.x + (p2.x - p0.x) / 6;
+            const cp1y = p1.y + (p2.y - p0.y) / 6;
+            const cp2x = p2.x - (p3.x - p1.x) / 6;
+            const cp2y = p2.y - (p3.y - p1.y) / 6;
+            d += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${p2.x} ${p2.y}`;
+          }
+          return d;
         }
 
-        function animateBeamSweep(yFraction) {
-          positionBeam(yFraction);
+        function buildBeam() {
+          const W = document.documentElement.scrollWidth;
+          const pageH = document.body.scrollHeight;
+          svg.setAttribute('height', pageH);
+          wrapper.style.height = pageH + 'px';
 
-          // Reset position instantly then sweep
-          beamLine.style.transition = 'none';
-          beamLine.style.left = '-60%';
-          beamLine.style.opacity = '1';
-          beamGlow.style.opacity = '0.9';
-          beamGlow.style.left = '0px';
+          const waypoints = [];
 
-          // Force reflow
-          void beamLine.offsetWidth;
+          // Entry point — enter from left edge near hero
+          waypoints.push({ x: -40, y: 220 });
 
-          // Sweep across
-          const duration = 900; // ms
-          const start = performance.now();
+          ANCHORS.forEach(({ sel, type }) => {
+            const el = document.querySelector(sel);
+            if (!el) return;
+            const rect = el.getBoundingClientRect();
+            const docTop  = rect.top + window.scrollY;
+            const docLeft = rect.left;
+            const docRight = rect.right;
+            const cx = docLeft + rect.width / 2;
+            const cy = docTop  + rect.height / 2;
+            const pad = 24;
 
-          function sweep(now) {
-            const elapsed = now - start;
-            const progress = Math.min(elapsed / duration, 1);
-            // Ease in-out
-            const ease = progress < 0.5
-              ? 2 * progress * progress
-              : -1 + (4 - 2 * progress) * progress;
-
-            const xPct = ease * 160 - 60; // sweep from -60% to +100%
-            beamLine.style.left = xPct + '%';
-            beamGlow.style.left = ((ease * 160)) + '%';
-
-            if (progress < 1) {
-              animFrame = requestAnimationFrame(sweep);
-            } else {
-              // Fade out
-              beamLine.style.transition = 'opacity 0.4s ease';
-              beamGlow.style.transition = 'opacity 0.4s ease';
-              beamLine.style.opacity = '0';
-              beamGlow.style.opacity = '0';
-              beamVisible = false;
+            if (type === 'underline') {
+              // Approach from left, swoop under, exit right
+              waypoints.push({ x: docLeft - 60, y: cy });
+              waypoints.push({ x: docLeft - pad, y: docTop + rect.height + 10 });
+              waypoints.push({ x: cx,             y: docTop + rect.height + 14 });
+              waypoints.push({ x: docRight + pad, y: docTop + rect.height + 10 });
+              waypoints.push({ x: docRight + 60, y: cy });
+            } else if (type === 'arc') {
+              // Half-circle arc around the right side of the element
+              waypoints.push({ x: cx,             y: docTop - pad });
+              waypoints.push({ x: docRight + 60,  y: cy });
+              waypoints.push({ x: cx,             y: docTop + rect.height + pad });
             }
-          }
-          animFrame = requestAnimationFrame(sweep);
+          });
+
+          // Exit down off the bottom
+          waypoints.push({ x: W / 2, y: pageH + 60 });
+
+          const d = catmullToBezier(waypoints);
+          beamPath.setAttribute('d', d);
+
+          totalLength = beamPath.getTotalLength();
+          beamPath.style.strokeDasharray  = totalLength;
+          beamPath.style.strokeDashoffset = totalLength;
+          beamDot.setAttribute('cx', '0');
+          beamDot.setAttribute('cy', '-100'); // hide initially
+          built = true;
         }
 
-        // Pick a y position based on scroll
-        function getBeamY() {
-          // Beam fires at a position 15-85% down the viewport, weighted toward center
-          return 0.2 + Math.random() * 0.6;
+        function updateBeam() {
+          if (!built) return;
+          const scrollY   = window.scrollY;
+          const pageH     = document.body.scrollHeight;
+          const winH      = window.innerHeight;
+          // Progress 0→1 over full page scroll
+          const progress  = Math.min(scrollY / (pageH - winH), 1);
+          const drawn     = totalLength * progress;
+          beamPath.style.strokeDashoffset = totalLength - drawn;
+
+          // Glowing dot at tip
+          const tip = beamPath.getPointAtLength(drawn);
+          beamDot.setAttribute('cx', tip.x);
+          beamDot.setAttribute('cy', tip.y);
         }
 
-        let lastBeamTime = 0;
-        const BEAM_COOLDOWN = 1200; // ms between beams
-
-        function onScroll() {
-          const now = performance.now();
-          const scrollY = window.pageYOffset;
-          const delta = Math.abs(scrollY - lastScrollY);
-
-          // Only fire when scrolling a meaningful amount
-          if (delta > 40 && !beamVisible && (now - lastBeamTime) > BEAM_COOLDOWN) {
-            lastBeamTime = now;
-            beamVisible = true;
-            if (animFrame) cancelAnimationFrame(animFrame);
-            if (hideTimer) clearTimeout(hideTimer);
-            animateBeamSweep(getBeamY());
-          }
-          lastScrollY = scrollY;
+        // Build after fonts/images settle
+        function init() {
+          buildBeam();
+          updateBeam();
         }
 
-        window.addEventListener('scroll', onScroll, { passive: true });
-
-        // Also fire once after short delay on page load
-        setTimeout(() => {
-          beamVisible = true;
-          animateBeamSweep(0.45);
-        }, 1800);
+        window.addEventListener('load', init);
+        // Rebuild on resize (debounced)
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(buildBeam, 200);
+        });
+        window.addEventListener('scroll', updateBeam, { passive: true });
       })();
 
     })();
