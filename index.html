@@ -2943,13 +2943,20 @@ void main(void) {
           built = true;
         }
 
+        let ticking = false;
         function updateBeam() {
           if (!built) return;
-          const drawn = interpolate(scrollMap, window.scrollY);
-          beamPath.style.strokeDashoffset = totalLength - drawn;
-          const tip = beamPath.getPointAtLength(drawn);
-          beamDot.setAttribute('cx', tip.x);
-          beamDot.setAttribute('cy', tip.y);
+          if (!ticking) {
+            window.requestAnimationFrame(() => {
+              const drawn = interpolate(scrollMap, window.scrollY);
+              beamPath.style.strokeDashoffset = totalLength - drawn;
+              const tip = beamPath.getPointAtLength(drawn);
+              beamDot.setAttribute('cx', tip.x);
+              beamDot.setAttribute('cy', tip.y);
+              ticking = false;
+            });
+            ticking = true;
+          }
         }
 
         function init() { buildBeam(); updateBeam(); }
