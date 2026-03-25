@@ -2851,35 +2851,49 @@ void main(void) {
           svg.setAttribute('height', pageH);
           wrapper.style.height = pageH + 'px';
 
-          // Beam flows down the LEFT MARGIN; only scoops toward anchors
-          const RAIL      = Math.max(60, W * 0.07); // ~7% from left
-          const MAX_SCOOP = 220; // max px the beam ventures from the rail
-
           const waypoints  = [];
-          const anchorMeta = [];
+          const anchorMeta = []; // {docCenterY} for timing
 
-          waypoints.push({ x: RAIL, y: 60 }); // entry
+          // Entry — top-left near hero
+          waypoints.push({ x: -40, y: 220 });
 
-          ANCHORS.forEach(({ sel }) => {
+          ANCHORS.forEach(({ sel, type }) => {
             const el = document.querySelector(sel);
             if (!el) return;
-            const rect      = el.getBoundingClientRect();
-            const docTop    = rect.top    + window.scrollY;
-            const docBot    = rect.bottom + window.scrollY;
-            const cy        = docTop + rect.height / 2;
-            const underlineY = docBot + 12;
+            const rect   = el.getBoundingClientRect();
+            const docTop = rect.top  + window.scrollY;
+            const docBot = rect.bottom + window.scrollY;
+            const dL     = rect.left;
+            const dR     = rect.right;
+            const cx     = dL + rect.width  / 2;
+            const cy     = docTop + rect.height / 2;
+            const pad    = 24;
 
-            // Scoop toward left edge of element, capped so we stay out of cards
-            const scoopX = Math.min(rect.left + 10, RAIL + MAX_SCOOP);
+            let anchorDocY = cy; // svg path sampling position
+            let triggerY   = cy; // scroll trigger position (always element center)
 
-            waypoints.push({ x: RAIL,   y: cy - 60    }); // approach on rail
-            waypoints.push({ x: scoopX, y: underlineY }); // dip toward element
-            waypoints.push({ x: RAIL,   y: cy + 80    }); // return to rail
+            if (type === 'underline') {
+              // Approach from left, swoop under, exit right
+              waypoints.push({ x: dL  - 60,  y: cy });
+              waypoints.push({ x: dL  - pad, y: docTop + rect.height + 10 });
+              waypoints.push({ x: cx,        y: docTop + rect.height + 14 });
+              waypoints.push({ x: dR  + pad, y: docTop + rect.height + 10 });
+              waypoints.push({ x: dR  + 60,  y: cy });
+              anchorDocY = docTop + rect.height + 14;
+              triggerY   = cy;
+            } else {
+              // Half-circle arc around the right side of the element
+              waypoints.push({ x: cx,        y: docTop - pad });
+              waypoints.push({ x: dR  + 60,  y: cy });
+              waypoints.push({ x: cx,        y: docBot + pad });
+              anchorDocY = cy;
+              triggerY   = cy;
+            }
 
-            anchorMeta.push({ docCenterY: underlineY, triggerY: cy });
+            anchorMeta.push({ docCenterY: anchorDocY, triggerY });
           });
 
-          waypoints.push({ x: RAIL, y: pageH - 40 }); // exit
+          waypoints.push({ x: W / 2, y: pageH + 60 });
 
           const d = catmullToBezier(waypoints);
           beamPath.setAttribute('d', d);
@@ -2887,7 +2901,7 @@ void main(void) {
           totalLength = beamPath.getTotalLength();
           beamPath.style.strokeDasharray  = totalLength;
           beamPath.style.strokeDashoffset = totalLength;
-          beamDot.setAttribute('cy', '-200');
+          beamDot.setAttribute('cy', '-200'); // hide until scroll
 
           /* Build scroll map */
           const map = [{ scroll: 0, drawn: 0 }];
