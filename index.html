@@ -1869,16 +1869,15 @@
     }
 
     /* ── SCROLL BEAM SVG ── */
+    /* Beam sits BEHIND content cards (z-index 1), glows in transitional areas */
     #scrollBeamSvg {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       pointer-events: none;
-      z-index: 10;
+      z-index: 1;
       overflow: visible;
-      /* Screen blend: beam adds light, never blocks text */
-      mix-blend-mode: screen;
     }
 
     #scrollBeamPath {
@@ -1900,7 +1899,16 @@
       left: 0;
       width: 100%;
       pointer-events: none;
-      z-index: 10;
+      z-index: 1;
+    }
+
+    /* Content sections sit above the beam */
+    .philosophy, .systems, .approach, .who-section,
+    .case-section, .contrast-section, .testimonials-section,
+    .cta-section, .founder-section, .intervention-section,
+    .trust-bar, footer, nav {
+      position: relative;
+      z-index: 3;
     }
   </style>
 </head>
@@ -2856,7 +2864,8 @@ void main(void) {
             const cy     = docTop + rect.height / 2;
             const pad    = 24;
 
-            let anchorDocY = cy; // the doc-Y that represents this anchor's "target" point
+            let anchorDocY = cy; // svg path sampling position
+            let triggerY   = cy; // scroll trigger position (always element center)
 
             if (type === 'underline') {
               waypoints.push({ x: dL  - 60,  y: cy });
@@ -2864,15 +2873,17 @@ void main(void) {
               waypoints.push({ x: cx,        y: docTop + rect.height + 14 });
               waypoints.push({ x: dR  + pad, y: docTop + rect.height + 10 });
               waypoints.push({ x: dR  + 60,  y: cy });
-              anchorDocY = docTop + rect.height + 14; // underline midpoint
+              anchorDocY = docTop + rect.height + 14; // where on path to sample
+              triggerY   = cy;                         // when element center hits mid-viewport
             } else {
               waypoints.push({ x: cx,        y: docTop - pad });
               waypoints.push({ x: dR  + 60,  y: cy });
               waypoints.push({ x: cx,        y: docBot + pad });
               anchorDocY = cy;
+              triggerY   = cy;
             }
 
-            anchorMeta.push({ docCenterY: anchorDocY });
+            anchorMeta.push({ docCenterY: anchorDocY, triggerY });
           });
 
           waypoints.push({ x: W / 2, y: pageH + 60 });
@@ -2901,7 +2912,8 @@ void main(void) {
             const docCx    = rect.left + rect.width / 2 + window.scrollX;
             const docCy    = meta.docCenterY;
             const pLen     = pathLenNear(docCx, docCy);
-            const trigger  = Math.max(0, docCy - winH * 0.5);
+            // Trigger: element CENTER at viewport center
+            const trigger  = Math.max(0, meta.triggerY - winH * 0.5);
             map.push({ scroll: trigger, drawn: pLen });
           });
 
