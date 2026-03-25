@@ -1875,21 +1875,23 @@
       left: 0;
       width: 100%;
       pointer-events: none;
-      z-index: 2;
+      z-index: 10;
       overflow: visible;
+      /* Screen blend: beam adds light, never blocks text */
+      mix-blend-mode: screen;
     }
 
     #scrollBeamPath {
       fill: none;
-      stroke: rgba(0, 200, 255, 0.9);
-      stroke-width: 2px;
+      stroke: rgba(0, 200, 255, 0.95);
+      stroke-width: 2.5px;
       stroke-linecap: round;
-      filter: drop-shadow(0 0 6px rgba(0,200,255,0.9)) drop-shadow(0 0 18px rgba(0,160,220,0.5));
+      filter: drop-shadow(0 0 5px rgba(0,210,255,1)) drop-shadow(0 0 14px rgba(0,170,230,0.7));
     }
 
     #scrollBeamDot {
-      fill: rgba(0, 220, 255, 1);
-      filter: drop-shadow(0 0 8px rgba(0,220,255,1)) drop-shadow(0 0 20px rgba(0,180,255,0.7));
+      fill: rgba(255, 255, 255, 1);
+      filter: drop-shadow(0 0 6px rgba(0,220,255,1)) drop-shadow(0 0 16px rgba(0,190,255,0.8));
     }
 
     .beam-wrapper {
@@ -1898,7 +1900,7 @@
       left: 0;
       width: 100%;
       pointer-events: none;
-      z-index: 2;
+      z-index: 10;
     }
   </style>
 </head>
@@ -2765,29 +2767,28 @@ void main(void) {
 
       // ── SCROLL-DRIVEN SVG BEAM ──
       (function () {
-        const svg = document.getElementById('scrollBeamSvg');
+        const svg      = document.getElementById('scrollBeamSvg');
         const beamPath = document.getElementById('scrollBeamPath');
-        const beamDot = document.getElementById('scrollBeamDot');
-        const wrapper = document.getElementById('beamWrapper');
+        const beamDot  = document.getElementById('scrollBeamDot');
+        const wrapper  = document.getElementById('beamWrapper');
         if (!svg || !beamPath || !beamDot || !wrapper) return;
 
-        // Selectors of elements the beam should flow through/underline
         const ANCHORS = [
-          { sel: '.hero .btn-primary',          type: 'underline' },
-          { sel: '.guarantee-container',         type: 'arc' },
-          { sel: '.phil-stat:nth-child(1)',       type: 'arc' },
-          { sel: '.phil-stat:nth-child(3)',       type: 'arc' },
-          { sel: '.systems .section-header h2',   type: 'underline' },
-          { sel: '#case-studies .btn-primary',    type: 'underline' },
-          { sel: '.cta-title',                    type: 'underline' },
-          { sel: '.cta-section .btn-primary',     type: 'underline' },
+          { sel: '.hero .btn-primary',        type: 'underline' },
+          { sel: '.guarantee-container',       type: 'arc'       },
+          { sel: '.phil-stat:nth-child(1)',    type: 'arc'       },
+          { sel: '.phil-stat:nth-child(3)',    type: 'arc'       },
+          { sel: '.systems .section-header h2', type: 'underline' },
+          { sel: '#case-studies .btn-primary', type: 'underline' },
+          { sel: '.cta-title',                type: 'underline' },
+          { sel: '.cta-section .btn-primary', type: 'underline' },
         ];
 
-        let pathData = '';
         let totalLength = 0;
-        let built = false;
+        let scrollMap   = []; // [{scroll, drawn}] piecewise linear
+        let built       = false;
 
-        // Catmull-Rom to cubic bezier for smooth organic curves
+        /* ── Catmull-Rom → cubic bezier ── */
         function catmullToBezier(pts) {
           let d = `M ${pts[0].x} ${pts[0].y}`;
           for (let i = 0; i < pts.length - 1; i++) {
@@ -2804,44 +2805,76 @@ void main(void) {
           return d;
         }
 
+        /* ── Find path length closest to a doc-space point ── */
+        function pathLenNear(docX, docY, samples = 600) {
+          const total = beamPath.getTotalLength();
+          let best = 0, bestDist = Infinity;
+          for (let i = 0; i <= samples; i++) {
+            const l  = (i / samples) * total;
+            const pt = beamPath.getPointAtLength(l);
+            const d  = (pt.x - docX) ** 2 + (pt.y - docY) ** 2;
+            if (d < bestDist) { bestDist = d; best = l; }
+          }
+          return best;
+        }
+
+        /* ── Piecewise linear interpolation ── */
+        function interpolate(map, scrollY) {
+          if (scrollY <= map[0].scroll) return map[0].drawn;
+          if (scrollY >= map[map.length - 1].scroll) return map[map.length - 1].drawn;
+          for (let i = 0; i < map.length - 1; i++) {
+            if (scrollY >= map[i].scroll && scrollY <= map[i + 1].scroll) {
+              const t = (scrollY - map[i].scroll) / (map[i + 1].scroll - map[i].scroll);
+              return map[i].drawn + t * (map[i + 1].drawn - map[i].drawn);
+            }
+          }
+          return map[map.length - 1].drawn;
+        }
+
         function buildBeam() {
-          const W = document.documentElement.scrollWidth;
+          const W     = document.documentElement.scrollWidth;
           const pageH = document.body.scrollHeight;
+          const winH  = window.innerHeight;
           svg.setAttribute('height', pageH);
           wrapper.style.height = pageH + 'px';
 
-          const waypoints = [];
+          const waypoints  = [];
+          const anchorMeta = []; // {docCenterY} for timing
 
-          // Entry point — enter from left edge near hero
+          // Entry — top-left near hero
           waypoints.push({ x: -40, y: 220 });
 
           ANCHORS.forEach(({ sel, type }) => {
             const el = document.querySelector(sel);
             if (!el) return;
-            const rect = el.getBoundingClientRect();
-            const docTop  = rect.top + window.scrollY;
-            const docLeft = rect.left;
-            const docRight = rect.right;
-            const cx = docLeft + rect.width / 2;
-            const cy = docTop  + rect.height / 2;
-            const pad = 24;
+            const rect   = el.getBoundingClientRect();
+            const docTop = rect.top  + window.scrollY;
+            const docBot = rect.bottom + window.scrollY;
+            const dL     = rect.left;
+            const dR     = rect.right;
+            const cx     = dL + rect.width  / 2;
+            const cy     = docTop + rect.height / 2;
+            const pad    = 24;
+
+            let anchorDocY = cy; // the doc-Y that represents this anchor's "target" point
 
             if (type === 'underline') {
-              // Approach from left, swoop under, exit right
-              waypoints.push({ x: docLeft - 60, y: cy });
-              waypoints.push({ x: docLeft - pad, y: docTop + rect.height + 10 });
-              waypoints.push({ x: cx,             y: docTop + rect.height + 14 });
-              waypoints.push({ x: docRight + pad, y: docTop + rect.height + 10 });
-              waypoints.push({ x: docRight + 60, y: cy });
-            } else if (type === 'arc') {
-              // Half-circle arc around the right side of the element
-              waypoints.push({ x: cx,             y: docTop - pad });
-              waypoints.push({ x: docRight + 60,  y: cy });
-              waypoints.push({ x: cx,             y: docTop + rect.height + pad });
+              waypoints.push({ x: dL  - 60,  y: cy });
+              waypoints.push({ x: dL  - pad, y: docTop + rect.height + 10 });
+              waypoints.push({ x: cx,        y: docTop + rect.height + 14 });
+              waypoints.push({ x: dR  + pad, y: docTop + rect.height + 10 });
+              waypoints.push({ x: dR  + 60,  y: cy });
+              anchorDocY = docTop + rect.height + 14; // underline midpoint
+            } else {
+              waypoints.push({ x: cx,        y: docTop - pad });
+              waypoints.push({ x: dR  + 60,  y: cy });
+              waypoints.push({ x: cx,        y: docBot + pad });
+              anchorDocY = cy;
             }
+
+            anchorMeta.push({ docCenterY: anchorDocY });
           });
 
-          // Exit down off the bottom
           waypoints.push({ x: W / 2, y: pageH + 60 });
 
           const d = catmullToBezier(waypoints);
@@ -2850,39 +2883,52 @@ void main(void) {
           totalLength = beamPath.getTotalLength();
           beamPath.style.strokeDasharray  = totalLength;
           beamPath.style.strokeDashoffset = totalLength;
-          beamDot.setAttribute('cx', '0');
-          beamDot.setAttribute('cy', '-100'); // hide initially
+          beamDot.setAttribute('cy', '-200'); // hide until scroll
+
+          /* ── Build scroll map: beam reaches anchor when anchor is at viewport center ── */
+          // anchor triggers when scrollY = anchorDocY - winH/2
+          const map = [{ scroll: 0, drawn: 0 }];
+
+          // Re-query to map anchor index → path element - find which anchor index corresponds
+          // to which waypoint center by sampling path near each anchor's doc position
+          let anchorIdx = 0;
+          ANCHORS.forEach(({ sel }) => {
+            const el = document.querySelector(sel);
+            if (!el) return;
+            const meta = anchorMeta[anchorIdx++];
+            if (!meta) return;
+            const rect     = el.getBoundingClientRect();
+            const docCx    = rect.left + rect.width / 2 + window.scrollX;
+            const docCy    = meta.docCenterY;
+            const pLen     = pathLenNear(docCx, docCy);
+            const trigger  = Math.max(0, docCy - winH * 0.5);
+            map.push({ scroll: trigger, drawn: pLen });
+          });
+
+          const maxScroll = pageH - winH;
+          map.push({ scroll: maxScroll, drawn: totalLength });
+          // Sort ascending by scroll
+          map.sort((a, b) => a.scroll - b.scroll);
+          scrollMap = map;
           built = true;
         }
 
         function updateBeam() {
           if (!built) return;
-          const scrollY   = window.scrollY;
-          const pageH     = document.body.scrollHeight;
-          const winH      = window.innerHeight;
-          // Progress 0→1 over full page scroll
-          const progress  = Math.min(scrollY / (pageH - winH), 1);
-          const drawn     = totalLength * progress;
+          const drawn = interpolate(scrollMap, window.scrollY);
           beamPath.style.strokeDashoffset = totalLength - drawn;
-
-          // Glowing dot at tip
           const tip = beamPath.getPointAtLength(drawn);
           beamDot.setAttribute('cx', tip.x);
           beamDot.setAttribute('cy', tip.y);
         }
 
-        // Build after fonts/images settle
-        function init() {
-          buildBeam();
-          updateBeam();
-        }
+        function init() { buildBeam(); updateBeam(); }
 
         window.addEventListener('load', init);
-        // Rebuild on resize (debounced)
         let resizeTimer;
         window.addEventListener('resize', () => {
           clearTimeout(resizeTimer);
-          resizeTimer = setTimeout(buildBeam, 200);
+          resizeTimer = setTimeout(() => { buildBeam(); updateBeam(); }, 200);
         });
         window.addEventListener('scroll', updateBeam, { passive: true });
       })();
