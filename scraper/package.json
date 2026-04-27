@@ -1,0 +1,20 @@
+{
+  "name": "zentra-scraper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "axios": "^1.14.0",
+    "cheerio": "^1.2.0",
+    "csv-writer": "^1.6.0",
+    "dotenv": "^17.4.0",
+    "express": "^4.22.1"
+  }
+}
