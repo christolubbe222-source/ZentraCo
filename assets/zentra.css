@@ -617,11 +617,9 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
 .tc-tp{
   position:absolute;top:12px;right:12px;
   background:#00B67A;
-  color:#fff;
-  font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:0.1em;
-  padding:4px 8px;border-radius:4px;
-  display:inline-flex;align-items:center;gap:4px;
-  z-index:2;text-transform:uppercase;
+  width:26px;height:26px;border-radius:4px;
+  display:inline-flex;align-items:center;justify-content:center;
+  z-index:2;flex:none;
 }
 .tc-header{
   display:flex;align-items:center;gap:14px;
