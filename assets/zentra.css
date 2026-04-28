@@ -528,6 +528,36 @@ footer .foot-col a:hover{color:var(--accent)}
 .toggle button.active{background:var(--accent);color:var(--bg)}
 input[type="range"]{width:100%;accent-color:var(--accent)}
 
+/* ── HERO SUBHEAD ── */
+.hero-subhead{font-size:17px;line-height:1.7;color:var(--ink-dim);max-width:680px;margin:24px auto 0;text-align:center}
+
+/* ── SECTION INTRO ── */
+.section-intro{font-size:16px;line-height:1.75;color:var(--ink-dim);max-width:760px;margin-bottom:48px}
+
+/* ── WORK GRID ── */
+.work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:40px}
+.work-item{padding:36px 32px;display:flex;flex-direction:column;gap:16px;transition:transform .4s,border-color .3s}
+.work-item:hover{transform:translateY(-4px);border-color:var(--accent)}
+.work-item h3{font-family:var(--serif);font-size:22px;font-weight:400;letter-spacing:-0.005em;color:var(--ink)}
+.work-item p{font-size:14px;line-height:1.75;color:var(--ink-dim)}
+
+/* ── BETA CALLOUT ── */
+.beta-callout{display:grid;grid-template-columns:1fr auto;gap:48px;align-items:center;padding:40px 48px;margin-top:40px;border-color:var(--accent)}
+.beta-content h3{font-family:var(--serif);font-size:clamp(22px,2.4vw,32px);font-weight:400;letter-spacing:-0.005em;margin-bottom:12px;color:var(--ink)}
+.beta-content p{font-size:14px;line-height:1.75;color:var(--ink-dim)}
+
+/* ── TESTIMONIALS ── */
+.testimonials-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.testimonial-item{padding:32px 28px;display:flex;flex-direction:column;gap:16px;transition:transform .4s,border-color .3s}
+.testimonial-item:hover{transform:translateY(-4px);border-color:var(--accent)}
+.t-stars{color:var(--accent);font-size:16px;letter-spacing:2px}
+.testimonial-item p{font-size:14px;line-height:1.75;color:var(--ink-dim);flex:1}
+.t-author{font-family:var(--mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);padding-top:16px;border-top:1px solid var(--line)}
+
+/* ── TIER PRICE ── */
+.tier-price{font-family:var(--mono);font-size:13px;letter-spacing:0.06em;color:var(--accent);padding:10px 0;margin:4px 0 8px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.offer-card--featured .tier-price{border-color:color-mix(in oklch, var(--accent) 40%, var(--line))}
+
 /* ── MOBILE ── */
 .hamburger{display:none;width:28px;height:22px;position:relative}
 .hamburger span{position:absolute;left:0;right:0;height:1px;background:var(--ink);transition:transform .3s, top .3s, opacity .3s}
@@ -572,6 +602,9 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
   .offer-card--featured{transform:none}
   .offer-card--featured:hover{transform:translateY(-4px)}
   .offers-sub{margin-bottom:48px}
+  .work-grid{grid-template-columns:1fr}
+  .beta-callout{grid-template-columns:1fr;gap:24px}
+  .testimonials-grid{grid-template-columns:1fr 1fr;gap:16px}
 }
 @media (max-width:600px){
   .proc-grid{grid-template-columns:1fr}
@@ -585,6 +618,7 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
   .vert-num{display:none}
   .vert-tag{font-size:9px;letter-spacing:0.12em}
   .cta-pill{padding:16px 28px;font-size:11px}
+  .testimonials-grid{grid-template-columns:1fr}
 }
 
 
