@@ -155,13 +155,28 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(
     ctx.fillStyle = depth;
     ctx.fillRect(0, 0, w, h);
 
-    // ── Edge glow: subtle blue halo along all four sides ──
-    const edge = ctx.createRadialGradient(w * 0.5, h * 0.5, Math.min(w, h) * 0.28, w * 0.5, h * 0.5, Math.max(w, h) * 0.82);
-    edge.addColorStop(0,    'rgba(0,0,0,0)');
-    edge.addColorStop(0.72, 'rgba(0,0,0,0)');
-    edge.addColorStop(1,    'rgba(30,80,200,0.22)');
-    ctx.fillStyle = edge;
-    ctx.fillRect(0, 0, w, h);
+    // ── Edge glow: blue bleed inward from all 4 sides ──
+    let eg;
+    // top
+    eg = ctx.createLinearGradient(0, 0, 0, h * 0.28);
+    eg.addColorStop(0, 'rgba(30,90,220,0.40)');
+    eg.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = eg; ctx.fillRect(0, 0, w, h * 0.28);
+    // bottom
+    eg = ctx.createLinearGradient(0, h, 0, h * 0.72);
+    eg.addColorStop(0, 'rgba(30,90,220,0.40)');
+    eg.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = eg; ctx.fillRect(0, h * 0.72, w, h * 0.28);
+    // left
+    eg = ctx.createLinearGradient(0, 0, w * 0.22, 0);
+    eg.addColorStop(0, 'rgba(30,90,220,0.35)');
+    eg.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = eg; ctx.fillRect(0, 0, w * 0.22, h);
+    // right
+    eg = ctx.createLinearGradient(w, 0, w * 0.78, 0);
+    eg.addColorStop(0, 'rgba(30,90,220,0.35)');
+    eg.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = eg; ctx.fillRect(w * 0.78, 0, w * 0.22, h);
 
     // ── Screen flash on strike ──
     if (flash > 0.006) {
