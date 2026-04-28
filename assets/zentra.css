@@ -528,8 +528,21 @@ footer .foot-col a:hover{color:var(--accent)}
 .toggle button.active{background:var(--accent);color:var(--bg)}
 input[type="range"]{width:100%;accent-color:var(--accent)}
 
+/* ── HERO ACCENT ── */
+.hero-accent{
+  font-style:normal;
+  color:var(--accent);
+  text-shadow:0 0 40px var(--accent-glow), 0 0 80px var(--accent-soft);
+}
+
 /* ── HERO SUBHEAD ── */
 .hero-subhead{font-size:17px;line-height:1.7;color:var(--ink-dim);max-width:680px;margin:24px auto 0;text-align:center}
+
+/* ── REVIEW SCREENSHOTS ── */
+.review-screenshots{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:40px}
+.review-screenshot{padding:0;overflow:hidden;transition:transform .4s,border-color .3s}
+.review-screenshot:hover{transform:translateY(-4px);border-color:var(--accent)}
+.review-screenshot img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.95)}
 
 /* ── SECTION INTRO ── */
 .section-intro{font-size:16px;line-height:1.75;color:var(--ink-dim);max-width:760px;margin-bottom:48px}
@@ -604,6 +617,7 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
   .offers-sub{margin-bottom:48px}
   .work-grid{grid-template-columns:1fr}
   .beta-callout{grid-template-columns:1fr;gap:24px}
+  .review-screenshots{grid-template-columns:1fr}
   .testimonials-grid{grid-template-columns:1fr 1fr;gap:16px}
 }
 @media (max-width:600px){
