@@ -20,6 +20,9 @@ document.getElementById('modal').addEventListener('click', e => {
   if (e.target.id === 'modal') e.currentTarget.classList.remove('open');
 });
 
+/* ── TICKER DUPLICATION (seamless loop) ── */
+document.querySelectorAll('.ticker-track').forEach(t => { t.innerHTML += t.innerHTML; });
+
 /* ── DRAWER NAV ── */
 const drawer = document.getElementById('drawer');
 const drawerBackdrop = document.getElementById('drawerBackdrop');
