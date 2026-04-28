@@ -585,13 +585,36 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
 .beta-content h3{font-family:var(--serif);font-size:clamp(22px,2.4vw,32px);font-weight:400;letter-spacing:-0.005em;margin-bottom:12px;color:var(--ink)}
 .beta-content p{font-size:14px;line-height:1.75;color:var(--ink-dim)}
 
-/* ── TESTIMONIALS ── */
-.testimonials-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.testimonial-item{padding:32px 28px;display:flex;flex-direction:column;gap:16px;transition:transform .4s,border-color .3s}
-.testimonial-item:hover{transform:translateY(-4px);border-color:var(--accent)}
-.t-stars{color:var(--accent);font-size:16px;letter-spacing:2px}
-.testimonial-item p{font-size:14px;line-height:1.75;color:var(--ink-dim);flex:1}
-.t-author{font-family:var(--mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);padding-top:16px;border-top:1px solid var(--line)}
+/* ── TESTIMONIALS TICKER ── */
+.testimonials-section{padding-bottom:0}
+.testimonials-section .container{padding-bottom:0}
+.ticker-wrapper{
+  overflow:hidden;width:100%;position:relative;
+  padding:40px 0 80px;
+  mask-image:linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image:linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+.ticker-track{
+  display:flex;gap:20px;
+  width:max-content;
+  animation:ticker 38s linear infinite;
+}
+.ticker-track:hover{animation-play-state:paused}
+@keyframes ticker{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
+}
+.ticker-card{
+  width:300px;flex-shrink:0;
+  padding:0;overflow:hidden;
+  display:flex;flex-direction:column;
+  transition:transform .3s,border-color .3s;
+}
+.ticker-card:hover{transform:translateY(-4px);border-color:var(--accent)}
+.ticker-card img{width:100%;height:auto;display:block;filter:brightness(.92)}
+.ticker-card .t-stars{color:var(--accent);font-size:15px;letter-spacing:1px;padding:24px 24px 0}
+.ticker-card p{font-size:14px;line-height:1.75;color:var(--ink-dim);padding:12px 24px;flex:1}
+.ticker-card .t-author{font-family:var(--mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);padding:0 24px 24px;border-top:1px solid var(--line);padding-top:14px;margin-top:auto}
 
 /* ── TIER PRICE ── */
 .tier-price{font-family:var(--mono);font-size:13px;letter-spacing:0.06em;color:var(--accent);padding:10px 0;margin:4px 0 8px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
