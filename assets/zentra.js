@@ -31,164 +31,182 @@ drawerBackdrop?.addEventListener('click', closeDrawer);
 drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { if (!a.hasAttribute('data-open-modal')) closeDrawer(); }));
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
 
-/* ── STELLAR CANVAS ── */
+/* ── LIGHTNING CANVAS ── */
 (() => {
   const c = document.getElementById('stellar');
-  const ctx = c.getContext('2d', {alpha:true});
-  let w, h, dpr, stars, planets, scroll = 0, targetScroll = 0;
+  if (!c) return;
+  const ctx = c.getContext('2d', {alpha: true});
 
-  function getAccent(){
-    const v = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
-    return v || 'oklch(0.78 0.12 85)';
-  }
-  function getInk(){
-    return getComputedStyle(document.documentElement).getPropertyValue('--ink').trim() || '#e8e4d8';
-  }
-  function theme(){ return document.documentElement.getAttribute('data-theme') || 'dark'; }
+  let w, h, dpr;
+  let bolts = [];
+  let particles = [];
+  let flash = 0;
+  let nextStrike = 800;
+  let lastT = 0;
 
-  function resize(){
+  // Electric blue palette
+  const CORE   = 'rgba(210,235,255,';  // bright white-blue core
+  const GLOW   = 'rgba(60,140,255,';   // electric blue glow
+  const BRANCH = 'rgba(100,170,255,';  // branch glow
+  const FLASH  = 'rgba(60,120,255,';   // screen flash tint
+  const DUST   = 'rgba(90,160,255,';   // ambient charge particles
+
+  /* ── Resize ── */
+  function resize() {
     dpr = Math.min(window.devicePixelRatio || 1, 2);
-    w = c.width = innerWidth * dpr;
+    w = c.width  = innerWidth  * dpr;
     h = c.height = innerHeight * dpr;
-    c.style.width = innerWidth+'px';
-    c.style.height = innerHeight+'px';
-    init();
+    c.style.width  = innerWidth  + 'px';
+    c.style.height = innerHeight + 'px';
+    spawnParticles();
   }
 
-  function init(){
-    stars = [];
-    const count = Math.floor((innerWidth * innerHeight) / 4200);
-    for (let i=0; i<count; i++){
-      stars.push({
-        x: Math.random()*w,
-        y: Math.random()*h * 3, // extend vertically so scroll reveals new stars
-        z: Math.random()*0.9 + 0.1,   // depth 0..1
-        r: Math.random()*1.3 + .2,
-        tw: Math.random()*Math.PI*2,
-        hue: Math.random() < 0.12 ? 'accent' : 'star'
-      });
-    }
-    planets = [
-      {a: w*0.55, b: h*0.28, cx: w*0.5, cy: h*0.5, speed: 0.000035, phase: 0.2, r: 3.2*dpr, color: 'accent', ring: true,  tilt: -0.35},
-      {a: w*0.38, b: h*0.16, cx: w*0.5, cy: h*0.5, speed: 0.000065, phase: 1.8, r: 2.0*dpr, color: 'ink',    ring: false, tilt:  0.18},
-      {a: w*0.72, b: h*0.22, cx: w*0.5, cy: h*0.5, speed: 0.000022, phase: 3.0, r: 4.0*dpr, color: 'ink',    ring: true,  tilt:  0.55},
-    ];
+  /* ── Particles ── */
+  function spawnParticles() {
+    particles = [];
+    const n = Math.floor((w * h) / (90000 * dpr));
+    for (let i = 0; i < n; i++) particles.push(makeParticle(true));
+  }
+  function makeParticle(anywhere) {
+    return {
+      x:  Math.random() * w,
+      y:  anywhere ? Math.random() * h : h + 8,
+      vy: -(Math.random() * 0.5 + 0.08) * dpr,
+      vx: (Math.random() - 0.5) * 0.15 * dpr,
+      r:  (Math.random() * 1.1 + 0.25) * dpr,
+      a:  Math.random() * 0.45 + 0.08,
+      ph: Math.random() * Math.PI * 2,
+    };
   }
 
-  function draw(t){
-    const motion = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--motion')) || 1;
-    const isLight = theme() === 'light';
-
-    scroll += (targetScroll - scroll) * 0.08;
-
-    ctx.clearRect(0,0,w,h);
-
-    // subtle central glow
-    const glow = ctx.createRadialGradient(w*0.5, h*0.5 - scroll*0.2, 0, w*0.5, h*0.5 - scroll*0.2, Math.max(w,h)*0.6);
-    if (isLight) {
-      glow.addColorStop(0, 'rgba(255,240,210,0.25)');
-      glow.addColorStop(0.5, 'rgba(255,240,210,0.05)');
-      glow.addColorStop(1, 'rgba(255,240,210,0)');
-    } else {
-      glow.addColorStop(0, 'rgba(40,44,66,0.55)');
-      glow.addColorStop(0.4, 'rgba(20,22,38,0.3)');
-      glow.addColorStop(1, 'rgba(10,11,20,0)');
+  /* ── Bolt segment generator (recursive midpoint displacement) ── */
+  function buildSegs(x1, y1, x2, y2, spread, depth, out, isBranch) {
+    if (depth === 0) { out.push({x1,y1,x2,y2,br:isBranch}); return; }
+    const mx = (x1+x2)/2 + (Math.random()-0.5) * spread;
+    const my = (y1+y2)/2 + (Math.random()-0.5) * spread * 0.18;
+    buildSegs(x1, y1, mx, my, spread*0.52, depth-1, out, isBranch);
+    buildSegs(mx, my, x2, y2, spread*0.52, depth-1, out, isBranch);
+    // random branch
+    if (!isBranch && depth > 2 && Math.random() < 0.42) {
+      const angle = (Math.random()-0.5) * 1.1;
+      const len   = (Math.abs(y2-y1) + Math.abs(x2-x1)) * (0.25 + Math.random()*0.35);
+      buildSegs(mx, my,
+        mx + Math.sin(angle)*len,
+        my + Math.cos(angle)*len*0.75,
+        spread*0.38, depth-2, out, true);
     }
-    ctx.fillStyle = glow;
+  }
+
+  function createBolt() {
+    const sx = (0.1 + Math.random()*0.8) * w;
+    const ex = sx + (Math.random()-0.5) * w * 0.35;
+    const ey = (0.45 + Math.random()*0.5) * h;
+    const spread = Math.abs(ex-sx)*0.9 + h*0.12;
+    const segs = [];
+    buildSegs(sx, 0, ex, ey, spread, 7, segs, false);
+    return {
+      segs,
+      life:  1.0,
+      decay: 0.016 + Math.random()*0.014,
+      ph:    Math.random()*Math.PI*2,
+      sx,
+    };
+  }
+
+  function scheduleNext() {
+    nextStrike = 2200 + Math.random() * 5500;
+  }
+
+  /* ── Draw one bolt ── */
+  function drawBolt(bolt) {
+    const flicker = 0.72 + Math.sin(bolt.ph) * 0.28;
+    const a = bolt.life * flicker;
+    bolt.ph += 0.35;
+
+    ctx.lineCap = 'round';
+    for (const s of bolt.segs) {
+      const br = s.br;
+      // outer glow
+      ctx.beginPath(); ctx.moveTo(s.x1,s.y1); ctx.lineTo(s.x2,s.y2);
+      ctx.strokeStyle = GLOW   + (a*(br?0.18:0.32)) + ')';
+      ctx.lineWidth   = (br ? 14 : 26) * dpr;
+      ctx.stroke();
+      // mid glow
+      ctx.beginPath(); ctx.moveTo(s.x1,s.y1); ctx.lineTo(s.x2,s.y2);
+      ctx.strokeStyle = BRANCH + (a*(br?0.28:0.48)) + ')';
+      ctx.lineWidth   = (br ? 5 : 9) * dpr;
+      ctx.stroke();
+      // core
+      ctx.beginPath(); ctx.moveTo(s.x1,s.y1); ctx.lineTo(s.x2,s.y2);
+      ctx.strokeStyle = CORE   + (a*(br?0.55:1.0)) + ')';
+      ctx.lineWidth   = (br ? 1.2 : 2.2) * dpr;
+      ctx.stroke();
+    }
+  }
+
+  scheduleNext();
+
+  /* ── Main loop ── */
+  function draw(t) {
+    const dt = Math.min(t - lastT, 50);
+    lastT = t;
+
+    ctx.clearRect(0, 0, w, h);
+
+    // Atmospheric dark vignette
+    const atm = ctx.createRadialGradient(w*.5,h*.35,0, w*.5,h*.5, Math.max(w,h)*.75);
+    atm.addColorStop(0,   'rgba(8,15,40,0.42)');
+    atm.addColorStop(0.55,'rgba(4,8,22,0.22)');
+    atm.addColorStop(1,   'rgba(0,0,0,0)');
+    ctx.fillStyle = atm;
     ctx.fillRect(0,0,w,h);
 
-    const accentColor = isLight ? 'rgba(180,140,40,' : 'rgba(240,215,130,';
-    const starColor   = isLight ? 'rgba(30,32,40,'   : 'rgba(232,228,216,';
-
-    // stars
-    for (let i=0; i<stars.length; i++){
-      const s = stars[i];
-      const parallax = scroll * (0.3 + s.z*1.4);
-      let y = (s.y - parallax) % (h*3);
-      if (y < 0) y += h*3;
-      y = y - h; // center band
-      if (y < -20 || y > h+20) continue;
-
-      s.tw += 0.004 * motion;
-      const tw = (Math.sin(s.tw) * 0.5 + 0.5) * 0.7 + 0.3;
-      const alpha = s.z * tw * (isLight ? 0.6 : 0.95);
-      const r = s.r * dpr * s.z;
-      const base = s.hue === 'accent' ? accentColor : starColor;
-      ctx.fillStyle = base + alpha + ')';
-      ctx.beginPath();
-      ctx.arc(s.x, y, r, 0, Math.PI*2);
-      ctx.fill();
-
-      // occasional halo on bright stars
-      if (s.z > 0.75 && s.hue === 'accent'){
-        ctx.fillStyle = base + (alpha*0.15) + ')';
-        ctx.beginPath();
-        ctx.arc(s.x, y, r*4, 0, Math.PI*2);
-        ctx.fill();
-      }
+    // Screen flash (decays quickly)
+    if (flash > 0.008) {
+      ctx.fillStyle = FLASH + (flash * 0.16) + ')';
+      ctx.fillRect(0,0,w,h);
+      flash *= 0.78;
     }
 
-    // planets + orbits (motion-controlled)
-    const cy = h*0.5 - scroll*0.35;
-    for (const p of planets){
-      const angle = p.phase + t * p.speed * motion * 1000;
-      const cos = Math.cos(p.tilt), sin = Math.sin(p.tilt);
-
-      // orbit path
-      ctx.save();
-      ctx.translate(p.cx, cy);
-      ctx.rotate(p.tilt);
+    // Ambient charged particles
+    for (let i = particles.length-1; i >= 0; i--) {
+      const p = particles[i];
+      p.x += p.vx; p.y += p.vy; p.ph += 0.055;
+      // glow brighter near active bolts
+      let boost = 0;
+      for (const b of bolts) boost = Math.max(boost, b.life * Math.max(0, 1-(Math.abs(p.x-b.sx)/(w*0.3))));
+      const alpha = Math.min((p.a * (0.55 + Math.sin(p.ph)*0.45)) + boost*0.5, 0.9);
       ctx.beginPath();
-      ctx.ellipse(0, 0, p.a, p.b, 0, 0, Math.PI*2);
-      ctx.strokeStyle = isLight ? 'rgba(23,24,28,0.08)' : 'rgba(232,228,216,0.07)';
-      ctx.lineWidth = 1;
-      ctx.stroke();
-      ctx.restore();
-
-      // planet position on tilted orbit
-      const ex = Math.cos(angle) * p.a;
-      const ey = Math.sin(angle) * p.b;
-      const px = p.cx + ex*cos - ey*sin;
-      const py = cy   + ex*sin + ey*cos;
-
-      // glow halo
-      const rc = ctx.createRadialGradient(px, py, 0, px, py, p.r*12);
-      const col = p.color === 'accent' ? accentColor : starColor;
-      rc.addColorStop(0, col + '0.55)');
-      rc.addColorStop(0.3, col + '0.18)');
-      rc.addColorStop(1, col + '0)');
-      ctx.fillStyle = rc;
-      ctx.beginPath();
-      ctx.arc(px, py, p.r*12, 0, Math.PI*2);
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fillStyle = DUST + alpha + ')';
       ctx.fill();
+      if (p.y < -8) particles[i] = makeParticle(false);
+    }
 
-      // planet body
-      ctx.fillStyle = col + (isLight ? '0.9)' : '1)');
-      ctx.beginPath();
-      ctx.arc(px, py, p.r, 0, Math.PI*2);
-      ctx.fill();
-
-      // optional ring
-      if (p.ring){
-        ctx.save();
-        ctx.translate(px, py);
-        ctx.rotate(p.tilt + 0.4);
-        ctx.beginPath();
-        ctx.ellipse(0, 0, p.r*3.2, p.r*1.1, 0, 0, Math.PI*2);
-        ctx.strokeStyle = col + '0.45)';
-        ctx.lineWidth = 1;
-        ctx.stroke();
-        ctx.restore();
+    // Strike timer
+    nextStrike -= dt;
+    if (nextStrike <= 0) {
+      const count = Math.random() < 0.28 ? 2 : 1;
+      for (let i = 0; i < count; i++) {
+        setTimeout(() => {
+          bolts.push(createBolt());
+          flash = Math.max(flash, 0.55 + Math.random()*0.45);
+        }, i * (70 + Math.random()*160));
       }
+      scheduleNext();
+    }
+
+    // Draw & age bolts
+    for (let i = bolts.length-1; i >= 0; i--) {
+      drawBolt(bolts[i]);
+      bolts[i].life -= bolts[i].decay;
+      if (bolts[i].life <= 0) bolts.splice(i,1);
     }
 
     requestAnimationFrame(draw);
   }
 
   window.addEventListener('resize', resize);
-  window.addEventListener('scroll', () => { targetScroll = window.scrollY * dpr; }, {passive:true});
   resize();
   requestAnimationFrame(draw);
 })();
-
-/* ── TWEAKS REMOVED ── design locked: blue accent, dark theme, 2% motion */
