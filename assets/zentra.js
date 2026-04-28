@@ -11,6 +11,8 @@ window.addEventListener('scroll', () => {
 }, {passive:true});
 
 /* ── MODAL ── */
+const CALENDLY_URL = 'https://calendly.com/christolubbe222/15min';
+
 document.querySelectorAll('[data-open-modal]').forEach(b => b.addEventListener('click', e => {
   e.preventDefault();
   document.getElementById('modal').classList.add('open');
@@ -18,6 +20,12 @@ document.querySelectorAll('[data-open-modal]').forEach(b => b.addEventListener('
 document.getElementById('closeModal').addEventListener('click', () => document.getElementById('modal').classList.remove('open'));
 document.getElementById('modal').addEventListener('click', e => {
   if (e.target.id === 'modal') e.currentTarget.classList.remove('open');
+});
+
+document.getElementById('diagnosisForm').addEventListener('submit', e => {
+  e.preventDefault();
+  document.getElementById('modal').classList.remove('open');
+  window.open(CALENDLY_URL, '_blank');
 });
 
 /* ── TICKER DUPLICATION (seamless loop) ── */
