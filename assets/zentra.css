@@ -731,6 +731,8 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
   .vert-tag{font-size:9px;letter-spacing:0.12em}
   .cta-pill{padding:16px 28px;font-size:11px}
   .testimonials-grid{grid-template-columns:1fr}
+  .scroll-hint span{display:none}
+  .scroll-hint::after{height:64px}
 }
 
 
