@@ -163,7 +163,8 @@ nav.scrolled{
   font-family:var(--mono);font-size:12px;letter-spacing:0.2em;text-transform:uppercase;
   padding:18px 36px;border-radius:999px;
   background:transparent;color:var(--ink);
-  border:1.5px solid rgba(232,228,216,.38);
+  border:1.5px solid rgba(240,185,40,.50);
+  box-shadow:0 0 18px rgba(240,185,40,.18), 0 0 0 1px rgba(240,185,40,.10);
   display:inline-flex;align-items:center;gap:14px;
   transition:background .45s cubic-bezier(.2,.7,.2,1), color .35s, border-color .4s, transform .4s, box-shadow .5s;
 }
@@ -732,7 +733,8 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
   .cta-pill{padding:16px 28px;font-size:11px}
   .testimonials-grid{grid-template-columns:1fr}
   .scroll-hint span{display:none}
-  .scroll-hint::after{height:64px}
+  .scroll-hint{bottom:0}
+  .scroll-hint::after{height:80px}
 }
 
 
