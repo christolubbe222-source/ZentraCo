@@ -160,8 +160,8 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(
 
     // ── Central atmospheric depth (restores the original depth glow) ──
     const depth = ctx.createRadialGradient(w * 0.5, h * 0.42, 0, w * 0.5, h * 0.5, Math.max(w, h) * 0.72);
-    depth.addColorStop(0,    'rgba(14,22,54,0.50)');
-    depth.addColorStop(0.45, 'rgba(7,12,32,0.28)');
+    depth.addColorStop(0,    'rgba(18,18,18,0.42)');
+    depth.addColorStop(0.45, 'rgba(10,10,10,0.20)');
     depth.addColorStop(1,    'rgba(0,0,0,0)');
     ctx.fillStyle = depth;
     ctx.fillRect(0, 0, w, h);
