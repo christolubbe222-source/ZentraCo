@@ -11,7 +11,7 @@ window.addEventListener('scroll', () => {
 }, {passive:true});
 
 /* ── MODAL ── */
-const CALENDLY_URL = 'https://calendly.com/christolubbe222/15min';
+const CALENDLY_URL = 'https://calendly.com/christolubbe222/30min';
 
 document.querySelectorAll('[data-open-modal]').forEach(b => b.addEventListener('click', e => {
   e.preventDefault();
