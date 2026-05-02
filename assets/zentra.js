@@ -109,7 +109,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(
   }
 
   function scheduleNext() {
-    nextStrike = 2800 + Math.random() * 5000;
+    nextStrike = 800 + Math.random() * 1700;
   }
 
   /* ── Draw bolt using shadowBlur for natural glow ── */
@@ -208,7 +208,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(
     // ── Strike timer ──
     nextStrike -= dt;
     if (nextStrike <= 0) {
-      const count = Math.random() < 0.25 ? 2 : 1;
+      const count = Math.random() < 0.40 ? 2 : 1;
       for (let i = 0; i < count; i++) {
         setTimeout(() => {
           bolts.push(createBolt());
