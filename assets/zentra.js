@@ -15,7 +15,7 @@ const CALENDLY_URL = 'https://calendly.com/christolubbe222/30min';
 
 document.querySelectorAll('[data-open-modal]').forEach(b => b.addEventListener('click', e => {
   e.preventDefault();
-  document.getElementById('modal').classList.add('open');
+  window.location.href = '/book-a-call';
 }));
 document.getElementById('closeModal').addEventListener('click', () => document.getElementById('modal').classList.remove('open'));
 document.getElementById('modal').addEventListener('click', e => {
