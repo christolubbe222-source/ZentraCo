@@ -67,12 +67,11 @@ html[data-theme="light"] #grain{mix-blend-mode:multiply;opacity:.08}
 .swoosh::after{
   content:'';
   position:absolute;
-  left:-2%;width:104%;
-  bottom:-0.26em;height:0.52em;
+  left:-5%;width:110%;
+  bottom:-0.16em;height:0.65em;
   z-index:-1;
-  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 34' preserveAspectRatio='none'><path d='M 3,8 C 50,1 95,18 145,10 C 190,3 240,17 290,10 C 335,4 390,13 497,9 L 497,19 C 395,18 340,14 290,19 C 240,23 190,12 145,21 C 98,27 50,17 3,26 Z' fill='%234a7eff' opacity='0.88'/></svg>") no-repeat left / 100% 100%;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 58' preserveAspectRatio='none'><path d='M 0,38 C 70,8 100,48 165,24 C 228,4 268,50 332,24 C 385,8 430,44 500,28 L 500,38 C 430,52 385,18 332,34 C 268,56 228,14 165,34 C 100,56 70,18 0,48 Z' fill='%234a7eff' opacity='0.88'/></svg>") no-repeat left / 100% 100%;
   pointer-events:none;
-  border-radius:40%;
 }
 .eyebrow{
   font-family:var(--mono);
@@ -328,14 +327,13 @@ html[data-theme="light"] .glass{
 .manifesto-band-title .wavy::after{
   content:'';
   position:absolute;
-  left:-2%;
-  bottom:-0.22em;
-  width:104%;
-  height:0.50em;
+  left:-5%;
+  bottom:-0.16em;
+  width:110%;
+  height:0.65em;
   z-index:-1;
-  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 34' preserveAspectRatio='none'><path d='M 3,8 C 50,1 95,18 145,10 C 190,3 240,17 290,10 C 335,4 390,13 497,9 L 497,20 C 395,19 340,14 290,20 C 240,24 190,12 145,22 C 98,28 50,17 3,26 Z' fill='%23E8453C' opacity='0.90'/></svg>") no-repeat left / 100% 100%;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 58' preserveAspectRatio='none'><path d='M 0,38 C 70,8 100,48 165,24 C 228,4 268,50 332,24 C 385,8 430,44 500,28 L 500,38 C 430,52 385,18 332,34 C 268,56 228,14 165,34 C 100,56 70,18 0,48 Z' fill='%23E8453C' opacity='0.90'/></svg>") no-repeat left / 100% 100%;
   pointer-events:none;
-  border-radius:40%;
 }
 /* ── WHO WE BUILD FOR ── */
 .who-we-build{padding:80px 0;text-align:center}
@@ -697,6 +695,8 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
 /* ── TESTIMONIALS TICKER ── */
 .testimonials-section{padding-bottom:0}
 .testimonials-section .container{padding-bottom:0}
+.testimonials-section .sec-head{text-align:center}
+.testimonials-section .sec-title{margin-left:auto;margin-right:auto}
 .ticker-wrapper{
   overflow:hidden;width:100%;position:relative;
   padding:40px 0 80px;
@@ -711,56 +711,48 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
 .ticker-track:hover{animation-play-state:paused}
 @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-/* New card style (from demo.tsx) */
+/* ── REVIEW CARDS ── */
 .tc-card{
   width:300px;flex-shrink:0;
-  background:var(--bg-2);
-  border:1px solid var(--line-2);
+  background:rgba(255,255,255,0.04);
   border-radius:14px;
-  overflow:hidden;
+  padding:22px;
+  display:flex;flex-direction:column;gap:14px;
   position:relative;
-  transition:transform .3s,border-color .3s;
-  display:flex;flex-direction:column;
+  transition:transform .3s;
+  box-shadow:0 2px 24px rgba(0,0,0,.28);
 }
-.tc-card:hover{transform:translateY(-5px);border-color:var(--accent)}
+.tc-card:hover{transform:translateY(-4px)}
+.tc-card-top{display:flex;justify-content:space-between;align-items:center}
 .tc-tp{
-  position:absolute;top:12px;right:12px;
   background:#00B67A;
-  width:26px;height:26px;border-radius:4px;
+  width:24px;height:24px;border-radius:4px;
   display:inline-flex;align-items:center;justify-content:center;
-  z-index:2;flex:none;
+  flex:none;
 }
-.tc-header{
-  display:flex;align-items:center;gap:14px;
-  padding:18px 18px 16px;
-  background:rgba(255,255,255,.03);
-  border-bottom:1px solid var(--line);
+.tc-stars{display:flex;gap:2px}
+.tc-quote{font-size:13px;line-height:1.75;color:var(--ink-dim);flex:1}
+.tc-footer{
+  display:flex;align-items:center;gap:12px;
+  padding-top:14px;
+  border-top:1px solid var(--line);
+  margin-top:auto;
 }
 .tc-avatar{
-  width:48px;height:48px;border-radius:50%;
-  object-fit:cover;object-position:top;
-  flex:none;border:2px solid var(--line-2);
+  width:40px;height:40px;border-radius:50%;
+  object-fit:cover;object-position:top center;
+  flex:none;
 }
-.tc-avatar-letter{
-  width:48px;height:48px;border-radius:50%;
-  flex:none;border:2px solid var(--line-2);
-  background:var(--accent-soft);
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--mono);font-size:18px;font-weight:700;color:var(--accent);
-}
-.tc-name{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--ink);letter-spacing:0.02em}
-.tc-role{font-size:11px;color:var(--ink-mute);margin-top:3px}
-.tc-body{padding:18px;display:flex;flex-direction:column;gap:14px;flex:1}
-.tc-stars{display:flex;gap:2px}
-.tc-quote{font-size:13px;line-height:1.75;color:var(--ink-dim)}
+.tc-name{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--ink);letter-spacing:0.02em}
+.tc-role{font-size:11px;color:var(--ink-mute);margin-top:2px}
 
 /* Screenshot image cards in ticker */
 .tc-img-card{
   width:280px;flex-shrink:0;
   overflow:hidden;border-radius:14px;
-  transition:transform .3s,border-color .3s;
+  transition:transform .3s;
 }
-.tc-img-card:hover{transform:translateY(-5px);border-color:var(--accent)}
+.tc-img-card:hover{transform:translateY(-4px)}
 .tc-img-card img{width:100%;height:auto;display:block;filter:brightness(.92)}
 
 /* ── TIER PRICE ── */
@@ -820,6 +812,7 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
 }
 @media (max-width:600px){
   .proc-grid{grid-template-columns:1fr}
+  .process .sec-title{font-size:clamp(16px,5.2vw,36px)}
   .hero-title{font-size:clamp(48px,13vw,72px)}
   .faq-q{grid-template-columns:1fr 32px;gap:16px}
   .faq-q .n{display:none}
