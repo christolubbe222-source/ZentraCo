@@ -219,7 +219,7 @@ nav.scrolled{
 /* ── SECTION FRAME ── */
 section{position:relative;padding:160px 48px}
 .container{max-width:1340px;margin:0 auto}
-.sec-head{display:block;margin-bottom:80px;border-bottom:1px solid var(--line);padding-bottom:48px}
+.sec-head{display:block;margin-bottom:80px;padding-bottom:32px}
 .sec-title{font-size:clamp(40px,5.6vw,84px);max-width:900px}
 
 /* ── GLASS TILE ── */
@@ -316,7 +316,7 @@ html[data-theme="light"] .glass{
   font-weight:400;
   letter-spacing:-0.02em;
   text-transform:uppercase;
-  color:#1e3ec8;
+  color:#1338f0;
   line-height:0.94;
 }
 .manifesto-band-title .wavy{
@@ -328,9 +328,9 @@ html[data-theme="light"] .glass{
   content:'';
   position:absolute;
   left:-5%;
-  bottom:-0.16em;
+  bottom:-0.20em;
   width:110%;
-  height:0.65em;
+  height:0.86em;
   z-index:-1;
   background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 58' preserveAspectRatio='none'><path d='M 0,38 C 70,8 100,48 165,24 C 228,4 268,50 332,24 C 385,8 430,44 500,28 L 500,38 C 430,52 385,18 332,34 C 268,56 228,14 165,34 C 100,56 70,18 0,48 Z' fill='%23E8453C' opacity='0.90'/></svg>") no-repeat left / 100% 100%;
   pointer-events:none;
@@ -558,7 +558,6 @@ html[data-theme="light"] .glass{
 
 /* ── FOOTER ── */
 footer{
-  border-top:1px solid var(--line);
   padding:80px 48px 48px;
   display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:60px;
   font-family:var(--mono);font-size:12px;letter-spacing:0.04em;color:var(--ink-dim);
@@ -774,9 +773,9 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
   nav{padding-top:18px;padding-bottom:18px}
   .hero{padding:120px 24px 80px}
   .nav-links,.nav-cta{display:none}
-  .nav-book-btn .nb-label{display:none}
-  .nav-book-btn{padding:10px 14px;gap:0}
-  .hamburger{display:block}
+  .menu-trigger{display:none}
+  .nav-book-btn .nb-label{display:inline}
+  .nav-book-btn{padding:10px 18px;gap:10px}
 
   .hero-cta{align-items:center}
   .hero-body{margin-top:40px;padding:0 8px}
@@ -812,7 +811,7 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
 }
 @media (max-width:600px){
   .proc-grid{grid-template-columns:1fr}
-  .process .sec-title{font-size:clamp(16px,5.2vw,36px)}
+  .process .sec-title{font-size:clamp(28px,7vw,84px)}
   .hero-title{font-size:clamp(48px,13vw,72px)}
   .faq-q{grid-template-columns:1fr 32px;gap:16px}
   .faq-q .n{display:none}
