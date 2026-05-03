@@ -14,9 +14,9 @@
   --accent-soft:oklch(var(--accent-l) var(--accent-c) var(--accent-h) / .18);
   --accent-glow:oklch(var(--accent-l) var(--accent-c) var(--accent-h) / .35);
   --motion:1;  /* 0..1 tweakable scalar */
-  --serif:'Barlow Condensed', 'Helvetica Neue', sans-serif;
-  --sans:'DM Sans', 'Inter', system-ui, sans-serif;
-  --mono:'Space Grotesk', 'DM Sans', system-ui, sans-serif;
+  --serif:'Anton', 'Impact', sans-serif;
+  --sans:'Inter', system-ui, sans-serif;
+  --mono:'Inter', system-ui, sans-serif;
 }
 html[data-theme="light"]{
   --bg:#efece3;
@@ -57,19 +57,19 @@ html[data-theme="light"] #grain{mix-blend-mode:multiply;opacity:.08}
 /* ── TYPE ── */
 .display{
   font-family:var(--serif);
-  font-weight:200;
-  letter-spacing:0.005em;
-  line-height:1.02;
-  text-transform:none;
+  font-weight:400;
+  letter-spacing:-0.02em;
+  line-height:0.96;
+  text-transform:uppercase;
 }
-.display em{font-style:normal;font-weight:600;color:var(--accent);letter-spacing:0.01em}
+.display em{font-style:normal;font-weight:400;color:var(--accent);letter-spacing:-0.02em}
 .swoosh{position:relative;display:inline-block}
 .swoosh::after{
   content:'';
   position:absolute;
-  left:-1%;width:102%;
-  bottom:-0.10em;height:0.20em;
-  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 22' preserveAspectRatio='none'><path d='M3,14 C70,3 190,20 290,9 C340,4 372,16 397,11' stroke='%234a7eff' stroke-width='7' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>") no-repeat center bottom / 100% 100%;
+  left:-2%;width:104%;
+  bottom:-0.14em;height:0.22em;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 420 26' preserveAspectRatio='none'><path d='M4,17 C28,9 60,22 98,15 C136,8 168,21 208,14 C248,7 282,20 322,13 C355,7 385,18 416,13' stroke='%231a50d0' stroke-width='8' fill='none' stroke-linecap='round' stroke-linejoin='round' opacity='0.95'/><path d='M6,21 C35,14 72,24 112,18 C152,12 186,23 228,17 C268,11 302,22 342,16 C370,11 395,20 414,16' stroke='%231a50d0' stroke-width='4' fill='none' stroke-linecap='round' stroke-linejoin='round' opacity='0.40'/></svg>") no-repeat center bottom / 100% 100%;
   pointer-events:none;
 }
 .eyebrow{
