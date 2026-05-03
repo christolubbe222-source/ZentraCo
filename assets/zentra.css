@@ -270,7 +270,7 @@ html[data-theme="light"] .glass{
   position:relative;
   background:#f0ece3;
   clip-path:polygon(0 80px, 100% 0, 100% calc(100% - 80px), 0 100%);
-  padding:160px 48px;
+  padding:230px 48px;
   text-align:center;
   z-index:3;
 }
@@ -284,7 +284,7 @@ html[data-theme="light"] .glass{
   color:#2c2c2c;
   line-height:1.75;
   font-weight:400;
-  margin-bottom:36px;
+  margin-bottom:40px;
   letter-spacing:0.005em;
 }
 .manifesto-band-title{
@@ -293,8 +293,22 @@ html[data-theme="light"] .glass{
   font-weight:400;
   letter-spacing:-0.02em;
   text-transform:uppercase;
-  color:#1a3adb;
+  color:var(--accent);
   line-height:0.94;
+}
+.manifesto-band-title .wavy{
+  position:relative;
+  display:inline-block;
+}
+.manifesto-band-title .wavy::after{
+  content:'';
+  position:absolute;
+  left:-1%;
+  bottom:-0.20em;
+  width:102%;
+  height:0.30em;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 28' preserveAspectRatio='none'><path d='M3,18 C22,7 44,25 72,16 C98,7 112,23 142,14 C170,5 188,24 218,15 C246,6 262,22 292,14 C320,5 338,24 368,15 C394,7 412,21 440,13 C460,6 476,20 497,13' stroke='%23E8453C' stroke-width='6' fill='none' stroke-linecap='round' stroke-linejoin='round'/><path d='M6,21 C28,12 48,26 76,18 C104,10 118,24 148,17 C174,10 192,24 222,17 C250,10 266,23 296,17' stroke='%23E8453C' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round' opacity='0.35'/></svg>") no-repeat center / 100% 100%;
+  pointer-events:none;
 }
 
 /* ── VERTICALS (orbit list) ── */
