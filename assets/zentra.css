@@ -265,6 +265,38 @@ html[data-theme="light"] .glass{
 .manifesto-meta .cell .k{font-family:var(--mono);font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
 .manifesto-meta .cell .v{font-family:var(--serif);font-weight:300;font-size:21px;color:var(--ink);letter-spacing:-0.005em;line-height:1.35}
 
+/* ── MANIFESTO BAND ── */
+.manifesto-band{
+  position:relative;
+  background:#f0ece3;
+  clip-path:polygon(0 80px, 100% 0, 100% calc(100% - 80px), 0 100%);
+  padding:160px 48px;
+  text-align:center;
+  z-index:3;
+}
+.manifesto-band-inner{
+  max-width:780px;
+  margin:0 auto;
+}
+.manifesto-band-body{
+  font-family:var(--sans);
+  font-size:clamp(16px,1.6vw,20px);
+  color:#2c2c2c;
+  line-height:1.75;
+  font-weight:400;
+  margin-bottom:36px;
+  letter-spacing:0.005em;
+}
+.manifesto-band-title{
+  font-family:var(--serif);
+  font-size:clamp(44px,7vw,96px);
+  font-weight:400;
+  letter-spacing:-0.02em;
+  text-transform:uppercase;
+  color:#1a3adb;
+  line-height:0.94;
+}
+
 /* ── VERTICALS (orbit list) ── */
 .verticals{position:relative}
 .verticals-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:40px;align-items:stretch}
