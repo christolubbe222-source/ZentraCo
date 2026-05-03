@@ -63,6 +63,15 @@ html[data-theme="light"] #grain{mix-blend-mode:multiply;opacity:.08}
   text-transform:none;
 }
 .display em{font-style:normal;font-weight:600;color:var(--accent);letter-spacing:0.01em}
+.swoosh{position:relative;display:inline-block}
+.swoosh::after{
+  content:'';
+  position:absolute;
+  left:-1%;width:102%;
+  bottom:-0.10em;height:0.20em;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 22' preserveAspectRatio='none'><path d='M3,14 C70,3 190,20 290,9 C340,4 372,16 397,11' stroke='%234a7eff' stroke-width='7' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>") no-repeat center bottom / 100% 100%;
+  pointer-events:none;
+}
 .eyebrow{
   font-family:var(--mono);
   font-size:11px;
