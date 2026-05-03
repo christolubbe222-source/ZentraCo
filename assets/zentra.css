@@ -288,6 +288,14 @@ html[data-theme="light"] .glass{
 .manifesto-meta .cell .k{font-family:var(--mono);font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
 .manifesto-meta .cell .v{font-family:var(--serif);font-weight:300;font-size:21px;color:var(--ink);letter-spacing:-0.005em;line-height:1.35}
 
+/* ── MANIFESTO SVG ── */
+.manifesto-svg{
+  display:block;
+  width:min(100%, 640px);
+  height:auto;
+  margin:0 auto;
+}
+
 /* ── MANIFESTO BAND ── */
 .manifesto-band{
   position:relative;
@@ -369,8 +377,29 @@ html[data-theme="light"] .glass{
 
 /* ── PROCESS ── */
 .process{position:relative}
-.process .sec-head{text-align:center}
-.process .sec-title{margin-left:auto;margin-right:auto}
+.process .sec-head{text-align:left}
+.proc-heading{
+  font-size:clamp(52px,8vw,118px);
+  display:flex;
+  flex-direction:column;
+  gap:0;
+  line-height:1;
+  text-align:left;
+  max-width:none;
+  margin:0;
+}
+.proc-line{display:block;line-height:1.02}
+.proc-line-door{
+  position:relative;
+  display:inline-block;
+}
+.proc-swoosh{
+  display:block;
+  width:clamp(180px,75%,560px);
+  height:auto;
+  margin-top:-0.18em;
+  margin-left:-0.04em;
+}
 .proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
 .proc-cell{padding:40px 32px 44px;min-height:340px;display:flex;flex-direction:column;transition:transform .4s ease, border-color .4s ease}
 .proc-cell:hover{transform:translateY(-4px);border-color:var(--accent)}
@@ -811,7 +840,8 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
 }
 @media (max-width:600px){
   .proc-grid{grid-template-columns:1fr}
-  .process .sec-title{font-size:clamp(28px,7vw,84px)}
+  .proc-heading{font-size:clamp(40px,10vw,84px)}
+  .proc-swoosh{width:min(90%,320px)}
   .hero-title{font-size:clamp(48px,13vw,72px)}
   .faq-q{grid-template-columns:1fr 32px;gap:16px}
   .faq-q .n{display:none}
