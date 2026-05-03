@@ -289,11 +289,11 @@ html[data-theme="light"] .glass{
 }
 .manifesto-band-title{
   font-family:var(--serif);
-  font-size:clamp(44px,7vw,96px);
+  font-size:clamp(52px,8.5vw,112px);
   font-weight:400;
   letter-spacing:-0.02em;
   text-transform:uppercase;
-  color:var(--accent);
+  color:#1e3ec8;
   line-height:0.94;
 }
 .manifesto-band-title .wavy{
@@ -304,11 +304,22 @@ html[data-theme="light"] .glass{
   content:'';
   position:absolute;
   left:-1%;
-  bottom:-0.20em;
+  bottom:-0.22em;
   width:102%;
-  height:0.30em;
-  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 28' preserveAspectRatio='none'><path d='M3,18 C22,7 44,25 72,16 C98,7 112,23 142,14 C170,5 188,24 218,15 C246,6 262,22 292,14 C320,5 338,24 368,15 C394,7 412,21 440,13 C460,6 476,20 497,13' stroke='%23E8453C' stroke-width='6' fill='none' stroke-linecap='round' stroke-linejoin='round'/><path d='M6,21 C28,12 48,26 76,18 C104,10 118,24 148,17 C174,10 192,24 222,17 C250,10 266,23 296,17' stroke='%23E8453C' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round' opacity='0.35'/></svg>") no-repeat center / 100% 100%;
+  height:0.42em;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 32' preserveAspectRatio='none'><path d='M 3,8 C 45,2 90,17 140,10 C 185,3 235,16 285,9 C 330,3 385,14 497,11 L 497,14 C 390,17 335,11 285,15 C 235,19 185,10 140,18 C 90,24 45,16 3,26 Z' fill='%23E8453C' opacity='0.93'/></svg>") no-repeat left / 100% 100%;
   pointer-events:none;
+}
+/* ── WHO WE BUILD FOR ── */
+.who-we-build{padding:80px 0}
+.who-sub{
+  font-family:var(--sans);
+  font-size:clamp(16px,1.6vw,20px);
+  color:var(--ink-dim);
+  line-height:1.75;
+  font-weight:300;
+  max-width:680px;
+  margin-top:32px;
 }
 
 /* ── VERTICALS (orbit list) ── */
