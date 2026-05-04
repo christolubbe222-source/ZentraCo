@@ -721,6 +721,60 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
 .beta-content h3{font-family:var(--serif);font-size:clamp(22px,2.4vw,32px);font-weight:400;letter-spacing:-0.005em;margin-bottom:12px;color:var(--ink)}
 .beta-content p{font-size:14px;line-height:1.75;color:var(--ink-dim)}
 
+/* ── DUAL DIAGONAL TICKER ── */
+.dual-ticker-outer{
+  overflow:hidden;
+  padding:72px 0;
+  position:relative;
+  z-index:3;
+  pointer-events:none;
+}
+.dual-ticker-wrap{
+  transform:rotate(-3deg);
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.dual-ticker-bar{
+  overflow:hidden;
+  border-top:1px solid #00AAFF;
+  border-bottom:1px solid #00AAFF;
+  box-shadow:0 0 8px rgba(0,170,255,0.65),0 0 20px rgba(0,170,255,0.25);
+  padding:13px 0;
+  background:transparent;
+}
+.dual-ticker-track{
+  display:flex;
+  align-items:center;
+  width:max-content;
+  white-space:nowrap;
+}
+.dual-ticker-track--ltr{animation:dualLeft 30s linear infinite}
+.dual-ticker-track--rtl{animation:dualRight 30s linear infinite}
+@keyframes dualLeft{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes dualRight{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+.dual-ticker-track span{
+  font-family:var(--serif);
+  font-size:20px;
+  font-weight:400;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:#ffffff;
+  white-space:nowrap;
+  flex:none;
+}
+.ticker-logo-div{
+  height:20px;
+  width:auto;
+  flex:none;
+  margin:0 32px;
+  display:inline-block;
+  vertical-align:middle;
+  filter:brightness(3) contrast(1.1);
+  mix-blend-mode:screen;
+  opacity:0.85;
+}
+
 /* ── TESTIMONIALS TICKER ── */
 .testimonials-section{padding-bottom:0}
 .testimonials-section .container{padding-bottom:0}
