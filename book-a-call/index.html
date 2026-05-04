@@ -30,7 +30,7 @@
   --line: rgba(232,228,216,.08);
   --line-2: rgba(232,228,216,.16);
   --blue: #4a7eff;
-  --blue-dim: rgba(74,127,255,.12);
+  --red: #e8453c;
   --serif: 'Anton', 'Impact', sans-serif;
   --sans: 'Inter', system-ui, sans-serif;
 }
@@ -50,7 +50,7 @@ a { color: inherit; text-decoration: none; }
 button { font: inherit; background: none; border: none; cursor: pointer; }
 img { display: block; max-width: 100%; }
 
-/* ── GRAIN TEXTURE ── */
+/* ── GRAIN ── */
 body::before {
   content: '';
   position: fixed;
@@ -72,10 +72,9 @@ body::before {
   justify-content: space-between;
   padding: 20px 48px;
   border-bottom: 1px solid var(--line);
-  background: color-mix(in oklab, var(--bg) 85%, transparent);
+  background: rgba(6,6,6,0.88);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  transition: padding .3s;
 }
 .b-brand {
   display: flex;
@@ -110,32 +109,66 @@ body::before {
 }
 .b-back:hover { border-color: var(--blue); color: var(--blue); }
 
-/* ── PAGE WRAPPER ── */
-.b-page { position: relative; z-index: 1; padding-top: 65px; }
+/* ── PAGE ── */
+.b-page { position: relative; z-index: 1; padding-top: 78px; }
 
-/* ── URGENCY STRIP ── */
+/* ── URGENCY PILL ── */
 .b-strip {
-  background: rgba(74,127,255,.06);
-  border-bottom: 1px solid rgba(74,127,255,.14);
-  padding: 11px 48px;
+  padding: 24px 48px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
 }
-.b-strip-text {
-  font-family: var(--sans);
-  font-size: 11px;
+.b-strip-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #ffffff;
+  border: 2px solid var(--red);
+  border-radius: 999px;
+  padding: 14px 36px;
+  box-shadow:
+    0 0 12px rgba(232,69,60,0.55),
+    0 0 32px rgba(232,69,60,0.30),
+    0 0 56px rgba(232,69,60,0.14);
+  animation: pillPulse 2.2s ease-in-out infinite;
+  white-space: nowrap;
+}
+@keyframes pillPulse {
+  0%,100% {
+    box-shadow:
+      0 0 12px rgba(232,69,60,0.55),
+      0 0 32px rgba(232,69,60,0.30),
+      0 0 56px rgba(232,69,60,0.14);
+  }
+  50% {
+    box-shadow:
+      0 0 20px rgba(232,69,60,0.85),
+      0 0 48px rgba(232,69,60,0.55),
+      0 0 80px rgba(232,69,60,0.25);
+  }
+}
+.b-strip-hurry {
+  font-family: var(--serif);
+  font-size: 22px;
   font-weight: 400;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--blue);
+  color: var(--red);
+  line-height: 1;
 }
-.b-strip-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); opacity: 0.5; }
+.b-strip-body {
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 500;
+  color: #111111;
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
 
 /* ── HERO ── */
 .b-hero {
-  padding: 72px 48px 56px;
+  padding: 56px 48px 56px;
   max-width: 1240px;
   margin: 0 auto;
 }
@@ -210,14 +243,14 @@ body::before {
   flex: none;
 }
 .b-ticker-logo {
-  height: 26px;
+  height: 44px;
   width: auto;
   flex: none;
   margin: 0 36px;
   display: inline-block;
   vertical-align: middle;
   filter: brightness(0);
-  opacity: 0.65;
+  opacity: 0.6;
 }
 
 /* ── MAIN GRID ── */
@@ -251,14 +284,7 @@ body::before {
   align-items: center;
   gap: 10px;
 }
-.b-section-label::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--line);
-}
-
-/* ── WHAT TO EXPECT ── */
+.b-section-label::after { content: ''; flex: 1; height: 1px; background: var(--line); }
 .b-what-title {
   font-family: var(--serif);
   font-size: 28px;
@@ -270,7 +296,6 @@ body::before {
   margin-bottom: 28px;
 }
 .b-what-title em { font-style: normal; color: var(--blue); }
-
 .b-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
 .b-list li {
   display: flex;
@@ -293,79 +318,7 @@ body::before {
   width: 24px;
 }
 
-/* ── STATS ── */
-.b-stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  background: var(--line);
-}
-.b-stat {
-  background: var(--bg);
-  padding: 22px;
-  text-align: center;
-}
-.b-stat .num {
-  font-family: var(--serif);
-  font-size: 44px;
-  font-weight: 400;
-  color: var(--blue);
-  line-height: 1;
-  letter-spacing: 0.02em;
-}
-.b-stat .lbl {
-  font-family: var(--sans);
-  font-size: 10px;
-  font-weight: 400;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ink-mute);
-  margin-top: 6px;
-}
-
-/* ── TESTIMONIAL ── */
-.b-testimonial {
-  position: relative;
-  background: rgba(74,127,255,.05);
-  border: 1px solid rgba(74,127,255,.16);
-  border-radius: 10px;
-  padding: 28px 28px 24px;
-  box-shadow:
-    0 0 0 1px rgba(74,127,255,.06),
-    0 0 40px rgba(74,127,255,.10),
-    0 20px 48px rgba(0,0,0,.45);
-}
-.b-testimonial::before {
-  content: '\201C';
-  position: absolute;
-  top: -10px;
-  left: 20px;
-  font-family: var(--serif);
-  font-size: 80px;
-  font-weight: 400;
-  line-height: 1;
-  color: var(--blue);
-  opacity: 0.2;
-}
-.b-testimonial p {
-  font-size: 14px;
-  color: var(--ink-dim);
-  line-height: 1.75;
-  font-style: italic;
-  margin-bottom: 16px;
-}
-.b-testimonial cite {
-  font-family: var(--sans);
-  font-size: 10px;
-  font-weight: 400;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--blue);
-  font-style: normal;
-  opacity: 0.8;
-}
-
-/* ── RIGHT: CALENDLY ── */
+/* ── RIGHT: CALENDLY + STATS ── */
 .b-right {
   padding: 56px 48px;
   display: flex;
@@ -398,10 +351,55 @@ body::before {
   text-transform: uppercase;
   color: var(--ink-mute);
   text-align: center;
+  margin-bottom: 8px;
 }
 .b-no-times a { color: var(--blue); }
 
-/* ── FOOTER STRIP ── */
+/* ── STATS ROW (below calendly) ── */
+.b-stats-label {
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+.b-stats-label::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+.b-stats-row {
+  display: flex;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+.b-stat {
+  background: var(--bg);
+  padding: 22px 16px;
+  text-align: center;
+  flex: 1;
+}
+.b-stat .num {
+  font-family: var(--serif);
+  font-size: 36px;
+  font-weight: 400;
+  color: var(--blue);
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+.b-stat .lbl {
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-top: 6px;
+}
+
+/* ── FOOTER ── */
 .b-foot {
   padding: 28px 48px;
   max-width: 1240px;
@@ -432,8 +430,11 @@ body::before {
 /* ── MOBILE ── */
 @media (max-width: 900px) {
   .b-nav { padding: 18px 24px; }
-  .b-strip { padding: 10px 24px; }
-  .b-hero { padding: 56px 24px 48px; }
+  .b-strip { padding: 16px 24px; }
+  .b-strip-pill { padding: 12px 22px; white-space: normal; text-align: center; }
+  .b-strip-hurry { font-size: 18px; }
+  .b-strip-body { font-size: 14px; }
+  .b-hero { padding: 48px 24px; }
   .b-grid { grid-template-columns: 1fr; }
   .b-left { border-right: none; border-bottom: 1px solid var(--line); padding: 40px 24px; }
   .b-right { padding: 40px 24px; }
@@ -442,14 +443,12 @@ body::before {
 }
 @media (max-width: 600px) {
   .b-headline { font-size: clamp(52px, 16vw, 80px); }
-  .b-stats { grid-template-columns: repeat(4, 1fr); }
+  .b-stats-row { flex-wrap: wrap; }
+  .b-stat { flex: 1 1 calc(50% - 1px); min-width: 0; }
   .calendly-inline-widget { height: 580px; }
   .b-cal-wrap { min-height: 580px; }
   .b-ticker-track span { font-size: 22px; }
-  .b-ticker-logo { height: 20px; margin: 0 24px; }
-}
-@media (max-width: 480px) {
-  .b-stats { grid-template-columns: 1fr 1fr; }
+  .b-ticker-logo { height: 32px; margin: 0 24px; }
 }
 </style>
 </head>
@@ -466,11 +465,12 @@ body::before {
 
 <div class="b-page">
 
-  <!-- ── URGENCY STRIP ── -->
+  <!-- ── URGENCY PILL ── -->
   <div class="b-strip">
-    <span class="b-strip-dot"></span>
-    <span class="b-strip-text">Limited spots available this month — book before they fill up</span>
-    <span class="b-strip-dot"></span>
+    <div class="b-strip-pill">
+      <span class="b-strip-hurry">HURRY!</span>
+      <span class="b-strip-body">As of <span id="strip-date">today</span> we only have 3 spots left</span>
+    </div>
   </div>
 
   <!-- ── HERO ── -->
@@ -495,17 +495,15 @@ body::before {
   <!-- ── MAIN GRID ── -->
   <div class="b-grid">
 
-    <!-- LEFT -->
+    <!-- LEFT: what to expect -->
     <div class="b-left">
-
-      <!-- What to expect -->
       <div>
         <p class="b-section-label">What to expect</p>
         <h2 class="b-what-title">30 minutes.<br><em>Straight talk.</em></h2>
         <ul class="b-list">
           <li>
             <span class="n">01</span>
-            <span>We audit where your leads are dropping off. After-hours calls, slow callbacks, no follow-up system.</span>
+            <span>We audit where your leads are dropping off — after-hours calls, slow callbacks, no follow-up system.</span>
           </li>
           <li>
             <span class="n">02</span>
@@ -517,46 +515,13 @@ body::before {
           </li>
           <li>
             <span class="n">04</span>
-            <span>You leave with a clear picture of what's costing you jobs. Whether you hire us or not.</span>
+            <span>You leave with a clear picture of what's costing you jobs — whether you hire us or not.</span>
           </li>
         </ul>
       </div>
-
-      <!-- Stats -->
-      <div>
-        <p class="b-section-label">By the numbers</p>
-        <div class="b-stats">
-          <div class="b-stat">
-            <div class="num">25+</div>
-            <div class="lbl">Clients served</div>
-          </div>
-          <div class="b-stat">
-            <div class="num">5.0</div>
-            <div class="lbl">Client rating</div>
-          </div>
-          <div class="b-stat">
-            <div class="num">24/7</div>
-            <div class="lbl">AI intake</div>
-          </div>
-          <div class="b-stat">
-            <div class="num">0</div>
-            <div class="lbl">Missed leads</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Testimonial -->
-      <div>
-        <p class="b-section-label">From the field</p>
-        <div class="b-testimonial">
-          <p>"The drop in missed leads was immediate. We went from losing after-hours calls to having jobs auto-booked into our dispatch calendar."</p>
-          <cite>Marcus T. — Electrical Contractor</cite>
-        </div>
-      </div>
-
     </div>
 
-    <!-- RIGHT: CALENDLY -->
+    <!-- RIGHT: calendly + stats -->
     <div class="b-right">
       <p class="b-cal-label">Pick your time</p>
       <div class="b-cal-wrap">
@@ -567,6 +532,27 @@ body::before {
         <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
       </div>
       <p class="b-no-times">No times available? Email <a href="mailto:christo@zentra-co.com">christo@zentra-co.com</a></p>
+
+      <!-- Stats row -->
+      <p class="b-stats-label">By the numbers</p>
+      <div class="b-stats-row">
+        <div class="b-stat">
+          <div class="num">25+</div>
+          <div class="lbl">Clients served</div>
+        </div>
+        <div class="b-stat">
+          <div class="num">5.0</div>
+          <div class="lbl">Client rating</div>
+        </div>
+        <div class="b-stat">
+          <div class="num">24/7</div>
+          <div class="lbl">AI intake</div>
+        </div>
+        <div class="b-stat">
+          <div class="num">0</div>
+          <div class="lbl">Missed leads</div>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -582,6 +568,17 @@ body::before {
   </div>
 
 </div>
+
+<script>
+(function() {
+  var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var now = new Date();
+  var text = days[now.getDay()] + ' ' + now.getDate() + ' ' + months[now.getMonth()];
+  var el = document.getElementById('strip-date');
+  if (el) el.textContent = text;
+})();
+</script>
 
 </body>
 </html>
