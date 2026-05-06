@@ -859,7 +859,8 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
   nav{padding-top:18px;padding-bottom:18px}
   .hero{padding:120px 24px 80px}
   .nav-links,.nav-cta{display:none}
-  .menu-trigger{display:none}
+  .menu-trigger{display:inline-flex}
+  nav.scrolled .menu-trigger{display:none}
   .nav-book-btn .nb-label{display:inline}
   .nav-book-btn{padding:10px 18px;gap:10px}
 
