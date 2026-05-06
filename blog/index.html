@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Zentra Blog | AI Automation &amp; Web Design for Contractors</title>
+<meta name="description" content="Insights for electrical and solar contractors on web design, AI automation, lead generation, and getting more jobs from the same traffic.">
+<link rel="canonical" href="https://zentra-co.com/blog">
+<meta property="og:title" content="The Zentra Blog | Zentra Co">
+<meta property="og:description" content="Insights for electrical and solar contractors on web design, AI automation, and getting more leads.">
+<meta property="og:image" content="https://zentra-co.com/assets/Untitled%20design.png">
+<meta property="og:url" content="https://zentra-co.com/blog">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Zentra Co">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Zentra Blog | Zentra Co">
+<meta name="twitter:description" content="Insights for electrical and solar contractors on web design, AI automation, and getting more leads.">
+<meta name="twitter:image" content="https://zentra-co.com/assets/Untitled%20design.png">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon.png?v=1">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=1">
+<link rel="shortcut icon" href="/assets/favicon.png?v=1">
+<link rel="apple-touch-icon" href="/assets/favicon.png?v=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/zentra.css?v=2">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "The Zentra Blog",
+  "url": "https://zentra-co.com/blog",
+  "description": "Insights for electrical and solar contractors on web design, AI automation, and getting more leads.",
+  "publisher": {"@type": "Organization", "name": "Zentra Co", "url": "https://zentra-co.com"},
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://zentra-co.com/"},
+      {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://zentra-co.com/blog"}
+    ]
+  }
+}
+</script>
+<style>
+.blog-hero{padding:140px 48px 72px;max-width:1340px;margin:0 auto;border-bottom:1px solid var(--line)}
+.blog-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:24px;display:flex;align-items:center;gap:10px}
+.blog-eyebrow .dot{width:5px;height:5px;border-radius:50%;background:#0066FF;box-shadow:0 0 12px rgba(0,102,255,.5)}
+.blog-title{font-family:var(--serif);font-size:clamp(56px,8.5vw,112px);font-weight:400;text-transform:uppercase;line-height:.94;letter-spacing:-.02em;color:var(--ink);margin-bottom:24px}
+.blog-title em{color:#0066FF;font-style:normal}
+.blog-sub{font-size:18px;color:var(--ink-dim);max-width:580px;line-height:1.75;font-weight:300}
+.blog-section{padding:64px 48px 120px;max-width:1340px;margin:0 auto}
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.blog-card{background:rgba(255,255,255,.04);border-radius:14px;padding:32px;display:flex;flex-direction:column;gap:14px;transition:transform .3s,box-shadow .3s;box-shadow:0 2px 20px rgba(0,0,0,.25);text-decoration:none;color:inherit}
+.blog-card:hover{transform:translateY(-4px);box-shadow:0 8px 36px rgba(0,0,0,.45)}
+.blog-card-cat{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#0066FF;background:rgba(0,102,255,.08);border:1px solid rgba(0,102,255,.2);padding:4px 12px;border-radius:999px;width:fit-content;flex-shrink:0}
+.blog-card-title{font-family:var(--serif);font-size:clamp(20px,2vw,28px);color:var(--ink);line-height:1.1;text-transform:uppercase;letter-spacing:-.01em}
+.blog-card-excerpt{font-size:14px;color:var(--ink-dim);line-height:1.75;flex:1}
+.blog-card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid var(--line);margin-top:auto}
+.blog-card-date{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mute)}
+.blog-card-read{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0066FF;display:inline-flex;align-items:center;gap:6px;transition:gap .2s}
+.blog-card:hover .blog-card-read{gap:10px}
+.skeleton-card{background:rgba(255,255,255,.04);border-radius:14px;height:280px;position:relative;overflow:hidden}
+.skeleton-card::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 25%,rgba(255,255,255,.05) 50%,transparent 75%);background-size:200% 100%;animation:shimmer 1.5s ease-in-out infinite}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.blog-empty{grid-column:1/-1;text-align:center;padding:80px 0;color:var(--ink-mute);font-family:var(--serif);font-size:32px;text-transform:uppercase;letter-spacing:-.01em}
+@media(max-width:1000px){.blog-hero{padding:120px 24px 56px}.blog-section{padding:48px 24px 80px}.blog-grid{grid-template-columns:repeat(2,1fr);gap:16px}}
+@media(max-width:600px){.blog-grid{grid-template-columns:1fr}.blog-title{font-size:clamp(48px,12vw,72px)}}
+</style>
+</head>
+<body>
+<canvas id="stellar"></canvas>
+<div id="grain"></div>
+
+<header>
+<nav id="nav">
+  <a href="/" class="brand">
+    <img src="/assets/Untitled design.png" class="brand-logo" alt="Zentra Co">
+    <span>Zentra&nbsp;Co</span>
+  </a>
+  <div style="display:flex;align-items:center;gap:12px">
+    <button class="menu-trigger" id="menuTrigger" aria-label="Open menu">
+      <span class="bars"></span><span>Menu</span>
+    </button>
+    <a href="/book-a-call" class="nav-book-btn"><span class="nb-dot"></span><span class="nb-label">Book Now</span></a>
+  </div>
+</nav>
+</header>
+
+<div class="drawer-backdrop" id="drawerBackdrop"></div>
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer-head">
+    <span class="eyebrow"><span class="dot"></span>Navigation</span>
+    <button class="drawer-close" id="drawerClose" aria-label="Close menu">✕</button>
+  </div>
+  <ul class="drawer-nav">
+    <li><a href="/"><span><span class="num">01 &nbsp;</span>Home</span><span class="arr">→</span></a></li>
+    <li><a href="/services/growth-systems"><span><span class="num">02 &nbsp;</span>Growth Systems &amp; Websites</span><span class="arr">→</span></a></li>
+    <li><a href="/services/marketing"><span><span class="num">03 &nbsp;</span>Marketing</span><span class="arr">→</span></a></li>
+    <li><a href="/blog"><span><span class="num">04 &nbsp;</span>Blog</span><span class="arr">→</span></a></li>
+    <li><a href="/#faq"><span><span class="num">05 &nbsp;</span>FAQ</span><span class="arr">→</span></a></li>
+    <li><a href="/book-a-call"><span><span class="num">06 &nbsp;</span>Book a call</span><span class="arr">→</span></a></li>
+  </ul>
+  <div class="drawer-foot">
+    <span>Zentra Co &middot; Est. 2026</span>
+    <div class="socials">
+      <a href="https://www.instagram.com/zentraco_" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.facebook.com/profile.php?id=61589044629629" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://www.linkedin.com/company/zentra-co/?viewAsMember=true" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</aside>
+
+<main>
+<div class="page" id="top">
+
+  <div class="blog-hero">
+    <p class="blog-eyebrow"><span class="dot"></span>The Zentra Blog</p>
+    <h1 class="blog-title">Insights for <em>contractors</em><br>who want more jobs.</h1>
+    <p class="blog-sub">Web design, AI automation, and lead generation — practical reads for electrical and solar contractors who are done leaving money on the table.</p>
+  </div>
+
+  <div class="blog-section">
+    <div id="posts-grid" class="blog-grid">
+      <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
+    </div>
+  </div>
+
+</div>
+</main>
+
+<footer>
+  <div class="foot-brand">
+    <a href="/" class="brand" style="margin-bottom:20px">
+      <img src="/assets/Untitled design.png" class="brand-logo" alt="Zentra Co">
+      <span>Zentra&nbsp;Co</span>
+    </a>
+    <address class="foot-addr">1201 Orange St #600<br>Wilmington, DE 19801<br>United States</address>
+    <div class="foot-socials">
+      <a href="https://www.instagram.com/zentraco_" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg></a>
+      <a href="https://www.facebook.com/profile.php?id=61589044629629" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M14 8h2.5V5H14c-2 0-3.5 1.5-3.5 3.5V11H8v3h2.5v7h3v-7H16l.5-3h-3V8.5c0-.3.2-.5.5-.5z"/></svg></a>
+      <a href="https://www.linkedin.com/company/zentra-co/?viewAsMember=true" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="2" width="20" height="20" rx="4"/><path d="M8 11v5M8 8.5v.1M12 16v-5c0-1.1.9-2 2-2s2 .9 2 2v5"/></svg></a>
+      <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 4l7.5 9.5L4.5 20h2.7l5.7-6.2L18 20h2.5l-7.8-9.9L19.5 4H17l-5.3 5.8L7 4H4z"/></svg></a>
+    </div>
+  </div>
+  <div class="foot-col">
+    <h4 class="foot-head">Infrastructure</h4>
+    <ul>
+      <li><a href="/#manifesto">Our Philosophy</a></li>
+      <li><a href="/services/growth-systems">Growth Systems</a></li>
+      <li><a href="/services/marketing">Marketing</a></li>
+      <li><a href="/blog">Blog</a></li>
+    </ul>
+  </div>
+  <div class="foot-col">
+    <h4 class="foot-head">Compliance</h4>
+    <ul>
+      <li><a href="/privacy-policy">Privacy Policy</a></li>
+      <li><a href="/terms-of-service">Terms of Service</a></li>
+      <li><a href="/cookie-policy">Cookie Policy</a></li>
+      <li><a href="#">Accessibility</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+const SB_URL='https://jllasxulphugltnzjlcp.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpsbGFzeHVscGh1Z2x0bnpqbGNwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgwOTgyMTcsImV4cCI6MjA5MzY3NDIxN30.n9p8GYQ-ndfg3mRA8CI7bqGHloFzdzfU2Q4JMwHpxJ0';
+function formatDate(iso){return new Date(iso).toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})}
+function renderPosts(posts){
+  const g=document.getElementById('posts-grid');
+  if(!posts||!posts.length){g.innerHTML='<p class="blog-empty">First post dropping soon.</p>';return}
+  g.innerHTML=posts.map(p=>`
+    <a href="/blog/post/?slug=${encodeURIComponent(p.slug)}" class="blog-card">
+      ${p.category?`<span class="blog-card-cat">${p.category}</span>`:''}
+      <h2 class="blog-card-title">${p.title}</h2>
+      ${p.excerpt?`<p class="blog-card-excerpt">${p.excerpt}</p>`:''}
+      <div class="blog-card-footer">
+        <span class="blog-card-date">${formatDate(p.published_at)}</span>
+        <span class="blog-card-read">Read more →</span>
+      </div>
+    </a>`).join('');
+}
+async function loadPosts(){
+  try{
+    const r=await fetch(`${SB_URL}/rest/v1/blog_posts?select=title,slug,excerpt,category,published_at&order=published_at.desc`,
+      {headers:{'apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`}});
+    if(!r.ok)throw new Error();
+    renderPosts(await r.json());
+  }catch{document.getElementById('posts-grid').innerHTML='<p class="blog-empty">First post dropping soon.</p>'}
+}
+loadPosts();
+</script>
+
+<script>
+// Design tokens
+document.documentElement.style.setProperty('--accent-h',230);
+document.documentElement.setAttribute('data-theme','dark');
+document.documentElement.style.setProperty('--motion',0.02);
+// Nav scroll
+const navEl=document.getElementById('nav');
+window.addEventListener('scroll',()=>navEl.classList.toggle('scrolled',window.scrollY>60),{passive:true});
+// Drawer
+const drawer=document.getElementById('drawer'),bd=document.getElementById('drawerBackdrop');
+const openD=()=>{drawer.classList.add('open');bd.classList.add('open');drawer.setAttribute('aria-hidden','false');document.body.style.overflow='hidden'};
+const closeD=()=>{drawer.classList.remove('open');bd.classList.remove('open');drawer.setAttribute('aria-hidden','true');document.body.style.overflow=''};
+document.getElementById('menuTrigger')?.addEventListener('click',openD);
+document.getElementById('drawerClose')?.addEventListener('click',closeD);
+bd?.addEventListener('click',closeD);
+drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeD));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeD()});
+// Ambient particles
+(()=>{
+  const c=document.getElementById('stellar');if(!c)return;
+  const ctx=c.getContext('2d',{alpha:true});
+  let w,h,dpr,particles=[];
+  function resize(){dpr=Math.min(window.devicePixelRatio||1,2);w=c.width=innerWidth*dpr;h=c.height=innerHeight*dpr;c.style.width=innerWidth+'px';c.style.height=innerHeight+'px';particles=[];const n=Math.floor(w*h/110000);for(let i=0;i<n;i++)particles.push(mp(true))}
+  function mp(any){return{x:Math.random()*w,y:any?Math.random()*h:h+6,vy:-(Math.random()*.3+.06)*dpr,vx:(Math.random()-.5)*.1*dpr,r:(Math.random()*.9+.2)*dpr,a:Math.random()*.3+.05,ph:Math.random()*Math.PI*2}}
+  function draw(){ctx.clearRect(0,0,w,h);for(let i=particles.length-1;i>=0;i--){const p=particles[i];p.x+=p.vx;p.y+=p.vy;p.ph+=.05;const a=Math.min(p.a*(.5+Math.sin(p.ph)*.5),.6);ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(100,175,255,${a})`;ctx.fill();if(p.y<-6)particles[i]=mp(false)}requestAnimationFrame(draw)}
+  window.addEventListener('resize',resize);resize();requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>
