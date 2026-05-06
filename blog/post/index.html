@@ -242,15 +242,21 @@ function updateSEO(post){
   document.querySelector('meta[name="twitter:description"]').content=post.meta_description||'';
   document.getElementById('article-ld').textContent=JSON.stringify({
     '@context':'https://schema.org',
-    '@type':'Article',
+    '@type':'BlogPosting',
     headline:post.title,
     description:post.meta_description||post.excerpt||'',
     keywords:(post.tags||[]).join(', '),
+    inLanguage:'en-US',
+    url:url,
+    image:{'@type':'ImageObject',url:'https://zentra-co.com/assets/Untitled%20design.png',width:800,height:800},
     author:{'@type':'Organization',name:'Zentra Co',url:'https://zentra-co.com'},
-    publisher:{'@type':'Organization',name:'Zentra Co',url:'https://zentra-co.com',logo:{'@type':'ImageObject',url:'https://zentra-co.com/assets/Untitled%20design.png'}},
+    publisher:{'@type':'Organization',name:'Zentra Co',url:'https://zentra-co.com',logo:{'@type':'ImageObject',url:'https://zentra-co.com/assets/Untitled%20design.png',width:800,height:800}},
     datePublished:post.published_at,
     dateModified:post.published_at,
     mainEntityOfPage:{'@type':'WebPage','@id':url},
+    isPartOf:{'@type':'Blog',name:'The Zentra Blog',url:'https://zentra-co.com/blog'},
+    about:{'@type':'Thing',name:'Electrical and solar contractor marketing'},
+    audience:{'@type':'Audience',audienceType:'Electrical and solar contractors'},
     breadcrumb:{'@type':'BreadcrumbList',itemListElement:[
       {'@type':'ListItem',position:1,name:'Home',item:'https://zentra-co.com/'},
       {'@type':'ListItem',position:2,name:'Blog',item:'https://zentra-co.com/blog'},
