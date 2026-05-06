@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -43,33 +43,122 @@
 }
 </script>
 <style>
-.blog-hero{padding:140px 48px 72px;max-width:1340px;margin:0 auto;border-bottom:1px solid var(--line)}
-.blog-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:24px;display:flex;align-items:center;gap:10px}
-.blog-eyebrow .dot{width:5px;height:5px;border-radius:50%;background:#0066FF;box-shadow:0 0 12px rgba(0,102,255,.5)}
-.blog-title{font-family:var(--serif);font-size:clamp(56px,8.5vw,112px);font-weight:400;text-transform:uppercase;line-height:.94;letter-spacing:-.02em;color:var(--ink);margin-bottom:24px}
-.blog-title em{color:#0066FF;font-style:normal}
-.blog-sub{font-size:18px;color:var(--ink-dim);max-width:580px;line-height:1.75;font-weight:300}
-.blog-section{padding:64px 48px 120px;max-width:1340px;margin:0 auto}
-.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.blog-card{background:rgba(255,255,255,.04);border-radius:14px;padding:32px;display:flex;flex-direction:column;gap:14px;transition:transform .3s,box-shadow .3s;box-shadow:0 2px 20px rgba(0,0,0,.25);text-decoration:none;color:inherit}
-.blog-card:hover{transform:translateY(-4px);box-shadow:0 8px 36px rgba(0,0,0,.45)}
-.blog-card-cat{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#0066FF;background:rgba(0,102,255,.08);border:1px solid rgba(0,102,255,.2);padding:4px 12px;border-radius:999px;width:fit-content;flex-shrink:0}
-.blog-card-title{font-family:var(--serif);font-size:clamp(20px,2vw,28px);color:var(--ink);line-height:1.1;text-transform:uppercase;letter-spacing:-.01em}
-.blog-card-excerpt{font-size:14px;color:var(--ink-dim);line-height:1.75;flex:1}
-.blog-card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid var(--line);margin-top:auto}
-.blog-card-date{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mute)}
-.blog-card-read{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0066FF;display:inline-flex;align-items:center;gap:6px;transition:gap .2s}
+/* Light nav overrides */
+[data-theme="light"] .brand-logo{filter:none;opacity:1;mix-blend-mode:normal}
+[data-theme="light"] nav.scrolled{background:rgba(239,236,227,0.9);border-bottom:1px solid rgba(23,24,28,.1)}
+[data-theme="light"] .menu-trigger{border-color:rgba(23,24,28,.22);color:#17181c}
+[data-theme="light"] .menu-trigger:hover{border-color:#0066FF;color:#0066FF}
+[data-theme="light"] .nav-book-btn{border-color:rgba(23,24,28,.3);color:#17181c}
+[data-theme="light"] .nav-book-btn .nb-dot{background:#FFD600}
+[data-theme="light"] #grain{display:none}
+
+/* Blog hero */
+.blog-hero{
+  padding:140px 48px 80px;
+  max-width:1340px;margin:0 auto;
+  border-bottom:3px solid #17181c;
+}
+.blog-eyebrow{
+  font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:#0066FF;margin-bottom:28px;display:flex;align-items:center;gap:10px;font-weight:500;
+}
+.blog-eyebrow .dot{width:7px;height:7px;border-radius:50%;background:#0066FF;flex:none}
+.blog-title{
+  font-family:'Anton','Impact',sans-serif;
+  font-size:clamp(52px,9vw,120px);
+  font-weight:400;text-transform:uppercase;
+  line-height:.92;letter-spacing:-.01em;
+  color:#17181c;margin-bottom:32px;
+}
+.hl-yellow{
+  background:#FFD600;color:#17181c;
+  display:inline;padding:0 6px 2px;
+  box-decoration-break:clone;
+  -webkit-box-decoration-break:clone;
+}
+.hl-blue{
+  background:#0066FF;color:#fff;
+  display:inline;padding:0 6px 2px;
+  box-decoration-break:clone;
+  -webkit-box-decoration-break:clone;
+}
+.blog-sub{
+  font-size:18px;color:rgba(23,24,28,.62);
+  max-width:560px;line-height:1.7;font-weight:300;
+}
+.blog-meta-bar{
+  display:flex;align-items:center;gap:24px;margin-top:32px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(23,24,28,.38);
+}
+.blog-meta-bar span{display:flex;align-items:center;gap:8px}
+.blog-meta-bar strong{color:#17181c}
+
+/* Grid */
+.blog-section{padding:56px 48px 120px;max-width:1340px;margin:0 auto}
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;border:2px solid #17181c;background:#17181c}
+.blog-card{
+  background:#efece3;padding:32px 28px;
+  display:flex;flex-direction:column;gap:12px;
+  transition:background .2s;text-decoration:none;color:inherit;
+}
+.blog-card:hover{background:#fff}
+.blog-card-cat{
+  font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;
+  color:#fff;background:#0066FF;
+  padding:4px 10px;width:fit-content;flex-shrink:0;
+  font-weight:500;
+}
+.blog-card-title{
+  font-family:'Anton','Impact',sans-serif;
+  font-size:clamp(22px,2.2vw,30px);
+  color:#17181c;line-height:1.0;text-transform:uppercase;
+  letter-spacing:-.01em;
+}
+.blog-card-excerpt{
+  font-size:13px;color:rgba(23,24,28,.58);
+  line-height:1.75;flex:1;font-weight:300;
+}
+.blog-card-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:16px;border-top:1px solid rgba(23,24,28,.12);margin-top:auto;
+}
+.blog-card-date{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(23,24,28,.38)}
+.blog-card-read{
+  font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+  color:#0066FF;font-weight:600;display:inline-flex;align-items:center;gap:6px;
+  transition:gap .2s;
+}
 .blog-card:hover .blog-card-read{gap:10px}
-.skeleton-card{background:rgba(255,255,255,.04);border-radius:14px;height:280px;position:relative;overflow:hidden}
-.skeleton-card::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 25%,rgba(255,255,255,.05) 50%,transparent 75%);background-size:200% 100%;animation:shimmer 1.5s ease-in-out infinite}
+
+/* Skeleton */
+.skeleton-card{background:rgba(23,24,28,.06);height:280px;position:relative;overflow:hidden}
+.skeleton-card::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 25%,rgba(23,24,28,.04) 50%,transparent 75%);background-size:200% 100%;animation:shimmer 1.5s ease-in-out infinite}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-.blog-empty{grid-column:1/-1;text-align:center;padding:80px 0;color:var(--ink-mute);font-family:var(--serif);font-size:32px;text-transform:uppercase;letter-spacing:-.01em}
-@media(max-width:1000px){.blog-hero{padding:120px 24px 56px}.blog-section{padding:48px 24px 80px}.blog-grid{grid-template-columns:repeat(2,1fr);gap:16px}}
-@media(max-width:600px){.blog-grid{grid-template-columns:1fr}.blog-title{font-size:clamp(48px,12vw,72px)}}
+
+.blog-empty{grid-column:1/-1;text-align:center;padding:80px 0;color:rgba(23,24,28,.38);font-family:'Anton','Impact',sans-serif;font-size:32px;text-transform:uppercase;letter-spacing:-.01em;background:#efece3}
+
+/* Footer override for light */
+[data-theme="light"] footer{background:#17181c;color:#e8e4d8}
+[data-theme="light"] footer a{color:rgba(232,228,216,.7)}
+[data-theme="light"] footer a:hover{color:#FFD600}
+[data-theme="light"] .foot-head{color:#e8e4d8}
+[data-theme="light"] .foot-addr{color:rgba(232,228,216,.5)}
+[data-theme="light"] .foot-socials a{color:rgba(232,228,216,.5)}
+[data-theme="light"] .foot-socials a:hover{color:#FFD600}
+
+@media(max-width:1000px){
+  .blog-hero{padding:120px 24px 56px}
+  .blog-section{padding:40px 24px 80px}
+  .blog-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+  .blog-grid{grid-template-columns:1fr}
+  .blog-title{font-size:clamp(44px,13vw,68px)}
+}
 </style>
 </head>
 <body>
-<canvas id="stellar"></canvas>
 <div id="grain"></div>
 
 <header>
@@ -91,15 +180,15 @@
 <aside class="drawer" id="drawer" aria-hidden="true">
   <div class="drawer-head">
     <span class="eyebrow"><span class="dot"></span>Navigation</span>
-    <button class="drawer-close" id="drawerClose" aria-label="Close menu">✕</button>
+    <button class="drawer-close" id="drawerClose" aria-label="Close menu">x</button>
   </div>
   <ul class="drawer-nav">
-    <li><a href="/"><span><span class="num">01 &nbsp;</span>Home</span><span class="arr">→</span></a></li>
-    <li><a href="/services/growth-systems"><span><span class="num">02 &nbsp;</span>Growth Systems &amp; Websites</span><span class="arr">→</span></a></li>
-    <li><a href="/services/marketing"><span><span class="num">03 &nbsp;</span>Marketing</span><span class="arr">→</span></a></li>
-    <li><a href="/blog"><span><span class="num">04 &nbsp;</span>Blog</span><span class="arr">→</span></a></li>
-    <li><a href="/#faq"><span><span class="num">05 &nbsp;</span>FAQ</span><span class="arr">→</span></a></li>
-    <li><a href="/book-a-call"><span><span class="num">06 &nbsp;</span>Book a call</span><span class="arr">→</span></a></li>
+    <li><a href="/"><span><span class="num">01 &nbsp;</span>Home</span><span class="arr">&#8594;</span></a></li>
+    <li><a href="/services/growth-systems"><span><span class="num">02 &nbsp;</span>Growth Systems &amp; Websites</span><span class="arr">&#8594;</span></a></li>
+    <li><a href="/services/marketing"><span><span class="num">03 &nbsp;</span>Marketing</span><span class="arr">&#8594;</span></a></li>
+    <li><a href="/blog"><span><span class="num">04 &nbsp;</span>Blog</span><span class="arr">&#8594;</span></a></li>
+    <li><a href="/#faq"><span><span class="num">05 &nbsp;</span>FAQ</span><span class="arr">&#8594;</span></a></li>
+    <li><a href="/book-a-call"><span><span class="num">06 &nbsp;</span>Book a call</span><span class="arr">&#8594;</span></a></li>
   </ul>
   <div class="drawer-foot">
     <span>Zentra Co &middot; Est. 2026</span>
@@ -116,8 +205,15 @@
 
   <div class="blog-hero">
     <p class="blog-eyebrow"><span class="dot"></span>The Zentra Blog</p>
-    <h1 class="blog-title">Insights for <em>contractors</em><br>who want more jobs.</h1>
-    <p class="blog-sub">Web design, AI automation, and lead generation — practical reads for electrical and solar contractors who are done leaving money on the table.</p>
+    <h1 class="blog-title">
+      Reads for contractors<br>
+      who want <span class="hl-yellow">more jobs.</span>
+    </h1>
+    <p class="blog-sub">Web design, AI automation, and lead generation. Practical advice for electrical and solar contractors who are done leaving money on the table.</p>
+    <div class="blog-meta-bar">
+      <span>Published <strong>weekly</strong></span>
+      <span>Built for <strong>electrical &amp; solar contractors</strong></span>
+    </div>
   </div>
 
   <div class="blog-section">
@@ -179,7 +275,7 @@ function renderPosts(posts){
       ${p.excerpt?`<p class="blog-card-excerpt">${p.excerpt}</p>`:''}
       <div class="blog-card-footer">
         <span class="blog-card-date">${formatDate(p.published_at)}</span>
-        <span class="blog-card-read">Read more →</span>
+        <span class="blog-card-read">Read more &#8594;</span>
       </div>
     </a>`).join('');
 }
@@ -195,14 +291,8 @@ loadPosts();
 </script>
 
 <script>
-// Design tokens
-document.documentElement.style.setProperty('--accent-h',230);
-document.documentElement.setAttribute('data-theme','dark');
-document.documentElement.style.setProperty('--motion',0.02);
-// Nav scroll
 const navEl=document.getElementById('nav');
 window.addEventListener('scroll',()=>navEl.classList.toggle('scrolled',window.scrollY>60),{passive:true});
-// Drawer
 const drawer=document.getElementById('drawer'),bd=document.getElementById('drawerBackdrop');
 const openD=()=>{drawer.classList.add('open');bd.classList.add('open');drawer.setAttribute('aria-hidden','false');document.body.style.overflow='hidden'};
 const closeD=()=>{drawer.classList.remove('open');bd.classList.remove('open');drawer.setAttribute('aria-hidden','true');document.body.style.overflow=''};
@@ -211,16 +301,6 @@ document.getElementById('drawerClose')?.addEventListener('click',closeD);
 bd?.addEventListener('click',closeD);
 drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeD));
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeD()});
-// Ambient particles
-(()=>{
-  const c=document.getElementById('stellar');if(!c)return;
-  const ctx=c.getContext('2d',{alpha:true});
-  let w,h,dpr,particles=[];
-  function resize(){dpr=Math.min(window.devicePixelRatio||1,2);w=c.width=innerWidth*dpr;h=c.height=innerHeight*dpr;c.style.width=innerWidth+'px';c.style.height=innerHeight+'px';particles=[];const n=Math.floor(w*h/110000);for(let i=0;i<n;i++)particles.push(mp(true))}
-  function mp(any){return{x:Math.random()*w,y:any?Math.random()*h:h+6,vy:-(Math.random()*.3+.06)*dpr,vx:(Math.random()-.5)*.1*dpr,r:(Math.random()*.9+.2)*dpr,a:Math.random()*.3+.05,ph:Math.random()*Math.PI*2}}
-  function draw(){ctx.clearRect(0,0,w,h);for(let i=particles.length-1;i>=0;i--){const p=particles[i];p.x+=p.vx;p.y+=p.vy;p.ph+=.05;const a=Math.min(p.a*(.5+Math.sin(p.ph)*.5),.6);ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(100,175,255,${a})`;ctx.fill();if(p.y<-6)particles[i]=mp(false)}requestAnimationFrame(draw)}
-  window.addEventListener('resize',resize);resize();requestAnimationFrame(draw);
-})();
 </script>
 </body>
 </html>
