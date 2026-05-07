@@ -50,7 +50,15 @@ function slugify(text: string): string {
 }
 
 Deno.serve(async () => {
-  const topic = TOPICS[Math.floor(Math.random() * TOPICS.length)];
+  // Fetch existing slugs to avoid duplicate topic generation
+  const { data: existingPosts } = await supabase
+    .from("blog_posts")
+    .select("slug");
+  const existingSlugs = new Set((existingPosts || []).map((p: { slug: string }) => p.slug));
+
+  // Pick a topic whose slugified form hasn't been published yet
+  const shuffled = [...TOPICS].sort(() => Math.random() - 0.5);
+  const topic = shuffled.find(t => !existingSlugs.has(slugify(t))) ?? shuffled[0];
 
   const prompt = `You are an expert SEO content strategist and writer for Zentra Co, a web design and AI automation agency serving electrical and solar contractors across the United States.
 
@@ -120,11 +128,17 @@ Respond ONLY with a valid JSON object — no markdown, no backticks, no explanat
   const post = JSON.parse(raw);
 
   post.slug = slugify(post.title);
+  post.published_at = new Date().toISOString();
+
+  // Handle slug collision by appending date suffix
+  if (existingSlugs.has(post.slug)) {
+    post.slug = `${post.slug}-${new Date().toISOString().slice(0, 10)}`;
+  }
 
   const { error } = await supabase.from("blog_posts").insert(post);
 
   if (error) {
-    return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+    return new Response(JSON.stringify({ error: error.message, slug: post.slug }), { status: 500 });
   }
 
   return new Response(JSON.stringify({ success: true, slug: post.slug }), { status: 200 });
