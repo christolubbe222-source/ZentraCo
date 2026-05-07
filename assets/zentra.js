@@ -17,14 +17,14 @@ document.querySelectorAll('[data-open-modal]').forEach(b => b.addEventListener('
   e.preventDefault();
   window.location.href = '/book-a-call';
 }));
-document.getElementById('closeModal').addEventListener('click', () => document.getElementById('modal').classList.remove('open'));
-document.getElementById('modal').addEventListener('click', e => {
+document.getElementById('closeModal')?.addEventListener('click', () => document.getElementById('modal')?.classList.remove('open'));
+document.getElementById('modal')?.addEventListener('click', e => {
   if (e.target.id === 'modal') e.currentTarget.classList.remove('open');
 });
 
-document.getElementById('diagnosisForm').addEventListener('submit', e => {
+document.getElementById('diagnosisForm')?.addEventListener('submit', e => {
   e.preventDefault();
-  document.getElementById('modal').classList.remove('open');
+  document.getElementById('modal')?.classList.remove('open');
   window.open(CALENDLY_URL, '_blank');
 });
 

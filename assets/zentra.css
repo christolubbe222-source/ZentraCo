@@ -491,6 +491,15 @@ html[data-theme="light"] .glass{
 .faq-item[open] .faq-plus::after{transform:translate(-50%,-50%) rotate(90deg);opacity:0}
 .faq-a{padding:0 32px 28px calc(60px + 24px + 32px);max-width:860px;color:var(--ink-dim);font-size:15px;line-height:1.75}
 
+/* ── ANGLED STATS BLOCK ── */
+.stats-angled{position:relative;padding:100px 0;z-index:0}
+.stats-angled::before{content:'';position:absolute;inset:-50px 0;background:#efece3;transform:skewY(-10deg);z-index:-1}
+.stats-angled .sec-title{color:#17181c}
+.stats-angled .why-cell .big{color:#0066FF}
+.stats-angled .why-cell .lbl{color:#17181c;font-weight:500}
+.stats-angled .why-cell .desc{color:rgba(23,24,28,.62)}
+.stats-angled .why-cell{border-color:rgba(23,24,28,.12)}
+
 /* ── FINAL CTA ── */
 .final-cta{text-align:center;padding:130px 48px 100px}
 .final-cta .display{font-size:clamp(64px,11vw,180px);margin-bottom:48px}
