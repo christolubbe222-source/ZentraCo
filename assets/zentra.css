@@ -508,10 +508,10 @@ html[data-theme="light"] .glass{
 .cta-angled::before{content:'';position:absolute;inset:0;background:#F5F4F1;clip-path:polygon(0 0,100% 6%,100% 100%,0 94%);z-index:-1}
 .cta-angled .display{color:#17181c}
 .cta-angled .display em{color:#0066FF;font-style:normal}
-.cta-angled .sub{color:rgba(23,24,28,.62)}
-.cta-angled .cta-pill{border-color:rgba(23,24,28,.28);color:#17181c;background:transparent}
-.cta-angled .cta-pill .dot{background:#0066FF;animation:pulse 2.2s ease-in-out infinite}
-.cta-angled .cta-pill:hover{background:rgba(23,24,28,.06);border-color:#17181c}
+.cta-angled .sub{color:#17181c;font-weight:400}
+.cta-angled .cta-pill{color:#17181c}
+.cta-angled .cta-pill:hover{background:#17181c;color:#FFD600}
+.cta-angled .cta-pill:hover .dot{background:#FFD600}
 
 /* ── FINAL CTA ── */
 .final-cta{text-align:center;padding:130px 48px 100px}
