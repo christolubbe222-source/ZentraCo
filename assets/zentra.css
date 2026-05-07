@@ -491,14 +491,27 @@ html[data-theme="light"] .glass{
 .faq-item[open] .faq-plus::after{transform:translate(-50%,-50%) rotate(90deg);opacity:0}
 .faq-a{padding:0 32px 28px calc(60px + 24px + 32px);max-width:860px;color:var(--ink-dim);font-size:15px;line-height:1.75}
 
-/* ── ANGLED STATS BLOCK ── */
-.stats-angled{position:relative;padding:100px 0;z-index:0}
-.stats-angled::before{content:'';position:absolute;inset:-50px 0;background:#efece3;transform:skewY(-10deg);z-index:-1}
+/* ── ANGLED STATS BLOCK (/ tilt — left low, right high) ── */
+.stats-angled{position:relative;padding:130px 0;z-index:0}
+.stats-angled::before{content:'';position:absolute;inset:0;background:#efece3;clip-path:polygon(0 6%,100% 0,100% 94%,0 100%);z-index:-1}
 .stats-angled .sec-title{color:#17181c}
-.stats-angled .why-cell .big{color:#0066FF}
-.stats-angled .why-cell .lbl{color:#17181c;font-weight:500}
-.stats-angled .why-cell .desc{color:rgba(23,24,28,.62)}
-.stats-angled .why-cell{border-color:rgba(23,24,28,.12)}
+.stats-angled .why-grid{border-color:rgba(23,24,28,.15)}
+.stats-angled .why-cell{border-color:rgba(23,24,28,.15)}
+.stats-angled .why-cell .big{color:#0066FF;font-size:clamp(52px,7vw,88px)}
+.stats-angled .why-cell .lbl{color:#17181c;font-weight:700;font-size:12px;letter-spacing:.2em;text-transform:uppercase}
+.stats-angled .why-cell .desc{color:rgba(23,24,28,.68);font-size:14px;line-height:1.65}
+.stats-angled .why-cell:hover{background:rgba(0,102,255,.06)}
+.stats-angled .why-cell::after{background:#0066FF}
+
+/* ── ANGLED CTA BLOCK (\ tilt — left high, right low) ── */
+.cta-angled{position:relative;z-index:0}
+.cta-angled::before{content:'';position:absolute;inset:0;background:#0066FF;clip-path:polygon(0 0,100% 6%,100% 100%,0 94%);z-index:-1}
+.cta-angled .display{color:#fff}
+.cta-angled .display em{color:#FFD600;font-style:normal}
+.cta-angled .sub{color:rgba(255,255,255,.82)}
+.cta-angled .cta-pill{border-color:rgba(255,255,255,.55);color:#fff;background:rgba(255,255,255,.08)}
+.cta-angled .cta-pill .dot{background:#FFD600;animation:pulse 2.2s ease-in-out infinite}
+.cta-angled .cta-pill:hover{background:rgba(255,255,255,.18);border-color:#fff}
 
 /* ── FINAL CTA ── */
 .final-cta{text-align:center;padding:130px 48px 100px}
