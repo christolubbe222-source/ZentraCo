@@ -508,10 +508,10 @@ html[data-theme="light"] .glass{
 .cta-angled::before{content:'';position:absolute;inset:0;background:#F5F4F1;clip-path:polygon(0 0,100% 6%,100% 100%,0 94%);z-index:-1}
 .cta-angled .display{color:#17181c}
 .cta-angled .display em{color:#0066FF;font-style:normal}
-.cta-angled .sub{color:#17181c;font-weight:400}
-.cta-angled .cta-pill{color:#17181c}
-.cta-angled .cta-pill:hover{background:#17181c;color:#FFD600}
-.cta-angled .cta-pill:hover .dot{background:#FFD600}
+.final-cta.cta-angled .sub{color:#17181c;font-weight:500;opacity:1}
+.final-cta.cta-angled .cta-pill{color:#17181c}
+.final-cta.cta-angled .cta-pill:hover{background:#17181c;color:#FFD600}
+.final-cta.cta-angled .cta-pill:hover .dot{background:#FFD600}
 
 /* ── FINAL CTA ── */
 .final-cta{text-align:center;padding:130px 48px 100px}
