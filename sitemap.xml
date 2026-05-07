@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://zentra-co.com/</loc><lastmod>2026-05-06</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://zentra-co.com/services/growth-systems</loc><lastmod>2026-05-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://zentra-co.com/services/marketing</loc><lastmod>2026-05-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://zentra-co.com/faq</loc><lastmod>2026-05-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://zentra-co.com/book-a-call</loc><lastmod>2026-05-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://zentra-co.com/blog</loc><lastmod>2026-05-06</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
-  <url><loc>https://zentra-co.com/privacy-policy</loc><lastmod>2026-05-06</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://zentra-co.com/terms-of-service</loc><lastmod>2026-05-06</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://zentra-co.com/cookie-policy</loc><lastmod>2026-05-06</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://zentra-co.com/</loc><lastmod>2026-05-07</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://zentra-co.com/services/electrician</loc><lastmod>2026-05-07</lastmod><changefreq>monthly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://zentra-co.com/services/solar</loc><lastmod>2026-05-07</lastmod><changefreq>monthly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://zentra-co.com/services/growth-systems</loc><lastmod>2026-05-07</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://zentra-co.com/services/marketing</loc><lastmod>2026-05-07</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://zentra-co.com/case-studies</loc><lastmod>2026-05-07</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zentra-co.com/faq</loc><lastmod>2026-05-07</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://zentra-co.com/book-a-call</loc><lastmod>2026-05-07</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://zentra-co.com/blog</loc><lastmod>2026-05-07</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://zentra-co.com/privacy-policy</loc><lastmod>2026-05-07</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://zentra-co.com/terms-of-service</loc><lastmod>2026-05-07</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://zentra-co.com/cookie-policy</loc><lastmod>2026-05-07</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>
