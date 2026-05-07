@@ -505,13 +505,13 @@ html[data-theme="light"] .glass{
 
 /* ── ANGLED CTA BLOCK (\ tilt — left high, right low) ── */
 .cta-angled{position:relative;z-index:0}
-.cta-angled::before{content:'';position:absolute;inset:0;background:#0066FF;clip-path:polygon(0 0,100% 6%,100% 100%,0 94%);z-index:-1}
-.cta-angled .display{color:#fff}
-.cta-angled .display em{color:#FFD600;font-style:normal}
-.cta-angled .sub{color:rgba(255,255,255,.82)}
-.cta-angled .cta-pill{border-color:rgba(255,255,255,.55);color:#fff;background:rgba(255,255,255,.08)}
-.cta-angled .cta-pill .dot{background:#FFD600;animation:pulse 2.2s ease-in-out infinite}
-.cta-angled .cta-pill:hover{background:rgba(255,255,255,.18);border-color:#fff}
+.cta-angled::before{content:'';position:absolute;inset:0;background:#F5F4F1;clip-path:polygon(0 0,100% 6%,100% 100%,0 94%);z-index:-1}
+.cta-angled .display{color:#17181c}
+.cta-angled .display em{color:#0066FF;font-style:normal}
+.cta-angled .sub{color:rgba(23,24,28,.62)}
+.cta-angled .cta-pill{border-color:rgba(23,24,28,.28);color:#17181c;background:transparent}
+.cta-angled .cta-pill .dot{background:#0066FF;animation:pulse 2.2s ease-in-out infinite}
+.cta-angled .cta-pill:hover{background:rgba(23,24,28,.06);border-color:#17181c}
 
 /* ── FINAL CTA ── */
 .final-cta{text-align:center;padding:130px 48px 100px}
