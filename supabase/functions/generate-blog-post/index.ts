@@ -72,7 +72,8 @@ CONTENT REQUIREMENTS:
 - Use real, specific statistics and data points (at least 4). Make them concrete: percentages, dollar figures, timeframes.
 - Write in a confident, direct, conversational tone — like advice from someone who has seen hundreds of contractor businesses.
 - Short paragraphs, 2-3 sentences max.
-- No em dashes, no buzzwords like "leverage", "seamlessly", "game-changer", or "unlock".
+- NEVER use em dashes (—) anywhere. Use a comma, period, or rewrite the sentence instead. This is a hard rule with no exceptions.
+- No buzzwords like "leverage", "seamlessly", "game-changer", or "unlock".
 
 STRUCTURE:
 - H1: compelling title with the primary keyword naturally included
@@ -126,6 +127,13 @@ Respond ONLY with a valid JSON object — no markdown, no backticks, no explanat
 
   const raw = data.content[0].text.replace(/```json|```/g, "").trim();
   const post = JSON.parse(raw);
+
+  // Strip any em dashes the model produced despite instructions
+  const stripEmDashes = (str: string) => str.replace(/—/g, ',').replace(/\s,/g, ',');
+  post.title = stripEmDashes(post.title);
+  post.meta_description = stripEmDashes(post.meta_description);
+  post.excerpt = stripEmDashes(post.excerpt);
+  post.content = stripEmDashes(post.content);
 
   post.slug = slugify(post.title);
   post.published_at = new Date().toISOString();
