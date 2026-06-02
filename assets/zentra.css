@@ -827,10 +827,12 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
   padding:80px 0 40px;
 }
 /* text overrides for the light block */
-.testimonials-block .sec-title{color:#17181c}
-.tt-top{display:block;color:#17181c}
-.tt-bottom{display:block}
-.tt-em{font-style:normal;color:#38b6ff}
+.testimonials-visual{
+  display:block;
+  width:min(100%,720px);
+  height:auto;
+  margin:0 auto 8px;
+}
 .testimonials-block .section-intro{color:rgba(23,24,28,.58)}
 .testimonials-block .hsp-label{color:rgba(23,24,28,.7)}
 .testimonials-block .hsp-label strong{color:#17181c}
