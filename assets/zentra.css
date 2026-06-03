@@ -806,7 +806,7 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
   position:relative;
   transform:skewY(3deg);
   background:#f5f3ef;
-  margin:40px 0 60px;
+  margin:40px 0 0;
   z-index:2;
 }
 .testimonials-block::before{
@@ -833,7 +833,7 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
   height:auto;
   margin:0 auto 8px;
 }
-.testimonials-block .section-intro{color:rgba(23,24,28,.58)}
+.testimonials-block .section-intro{color:rgba(23,24,28,.58);margin-bottom:16px}
 .testimonials-block .hsp-label{color:rgba(23,24,28,.7)}
 .testimonials-block .hsp-label strong{color:#17181c}
 .testimonials-block .hsp-rating{color:#17181c}
@@ -857,6 +857,8 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
 .testimonials-section{padding-bottom:0}
 .testimonials-section .container{padding-bottom:0}
 .testimonials-section .sec-head{text-align:center}
+.testimonials-block .sec-head{margin-bottom:24px;padding-bottom:0}
+.testimonials-block .hero-social-proof{margin-bottom:16px !important}
 .testimonials-section .sec-title{margin-left:auto;margin-right:auto}
 .ticker-wrapper{
   overflow:hidden;width:100%;position:relative;
