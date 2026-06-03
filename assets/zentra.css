@@ -28,7 +28,7 @@ html[data-theme="light"]{
   --line-2:rgba(23,24,28,.18);
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;overflow-x:hidden}
 body{
   background:var(--bg);
   color:var(--ink);
@@ -1040,6 +1040,7 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
 .hamburger.open span:nth-child(3){bottom:auto;top:50%;transform:rotate(-45deg)}
 
 @media (max-width:1000px){
+  .dual-ticker-outer{margin-left:0;margin-right:0}
   nav,section,.final-cta{padding-left:24px;padding-right:24px}
   nav{padding-top:18px;padding-bottom:18px}
   .hero{padding:120px 24px 80px}
