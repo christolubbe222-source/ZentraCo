@@ -916,6 +916,84 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
 .tc-img-card:hover{transform:translateY(-4px)}
 .tc-img-card img{width:100%;height:auto;display:block;filter:brightness(.92)}
 
+/* ── SUCCESS STORY CTA ── */
+.success-cta{
+  position:relative;
+  padding:120px 0 100px;
+  text-align:center;
+  overflow:hidden;
+  background:var(--bg);
+}
+.success-cta-glow{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:700px;height:400px;
+  background:radial-gradient(ellipse, rgba(240,185,40,.13) 0%, transparent 70%);
+  pointer-events:none;
+  z-index:0;
+}
+.success-cta-inner{
+  position:relative;
+  z-index:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.success-cta-title{
+  line-height:1;
+  margin-bottom:28px;
+}
+.sct-top{display:block;color:var(--ink)}
+.sct-bottom{
+  display:block;
+  color:#F0B928;
+  text-shadow:0 0 48px rgba(240,185,40,.45);
+}
+.success-cta-sub{
+  max-width:580px;
+  color:var(--ink-dim);
+  font-size:17px;
+  line-height:1.7;
+  margin-bottom:48px;
+}
+.success-cta-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:14px;
+  background:#F0B928;
+  color:#0a0a0a;
+  font-family:var(--mono);
+  font-size:15px;
+  font-weight:700;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  padding:22px 56px;
+  border-radius:6px;
+  text-decoration:none;
+  position:relative;
+  transition:transform .2s ease, box-shadow .2s ease;
+  box-shadow:0 0 40px rgba(240,185,40,.4), 0 6px 28px rgba(0,0,0,.5);
+  animation:ctaPulse 2.8s ease-in-out infinite;
+}
+.success-cta-btn:hover{
+  transform:translateY(-4px) scale(1.03);
+  box-shadow:0 0 80px rgba(240,185,40,.65), 0 12px 40px rgba(0,0,0,.55);
+  animation:none;
+}
+@keyframes ctaPulse{
+  0%,100%{box-shadow:0 0 40px rgba(240,185,40,.4), 0 6px 28px rgba(0,0,0,.5)}
+  50%{box-shadow:0 0 72px rgba(240,185,40,.7), 0 6px 28px rgba(0,0,0,.5)}
+}
+.success-cta-nudge{
+  margin-top:20px;
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--ink-mute);
+}
+
 /* ── TIER PRICE ── */
 .tier-price{font-family:var(--mono);font-size:13px;letter-spacing:0.06em;color:var(--accent);padding:10px 0;margin:4px 0 8px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .offer-card--featured .tier-price{border-color:color-mix(in oklch, var(--accent) 40%, var(--line))}
