@@ -824,7 +824,7 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
   transform:skewY(-3deg);
   position:relative;
   z-index:1;
-  padding:80px 0 40px;
+  padding:40px 0 20px;
 }
 /* text overrides for the light block */
 .testimonials-visual{
