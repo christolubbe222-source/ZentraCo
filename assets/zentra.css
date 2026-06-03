@@ -919,17 +919,43 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
 /* ── SUCCESS STORY CTA ── */
 .success-cta{
   position:relative;
-  padding:120px 0 100px;
+  padding:100px 0 90px;
   text-align:center;
   overflow:hidden;
-  background:var(--bg);
+  /* fogged cracked glass — transparent so lightning shows through */
+  background:rgba(6,6,6,.72);
+  backdrop-filter:blur(3px);
+  -webkit-backdrop-filter:blur(3px);
+}
+/* tarmac grain texture */
+.success-cta::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='256' height='256'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='1'/></svg>");
+  background-size:256px 256px;
+  opacity:0.06;
+  mix-blend-mode:overlay;
+  pointer-events:none;
+  z-index:0;
+}
+/* cracked glass overlay */
+.success-cta::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  border-top:1px solid rgba(255,255,255,.06);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  background:linear-gradient(135deg,rgba(255,255,255,.03) 0%,transparent 50%,rgba(255,255,255,.02) 100%);
+  pointer-events:none;
+  z-index:0;
 }
 .success-cta-glow{
   position:absolute;
   top:50%;left:50%;
   transform:translate(-50%,-50%);
   width:700px;height:400px;
-  background:radial-gradient(ellipse, rgba(240,185,40,.13) 0%, transparent 70%);
+  background:radial-gradient(ellipse, rgba(240,185,40,.10) 0%, transparent 70%);
   pointer-events:none;
   z-index:0;
 }
@@ -941,21 +967,22 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
   align-items:center;
 }
 .success-cta-title{
-  line-height:1;
-  margin-bottom:28px;
+  line-height:0.95;
+  margin-bottom:24px;
+  font-size:clamp(72px,11vw,148px);
 }
 .sct-top{display:block;color:var(--ink)}
 .sct-bottom{
   display:block;
   color:#F0B928;
-  text-shadow:0 0 48px rgba(240,185,40,.45);
+  text-shadow:0 0 60px rgba(240,185,40,.5);
 }
 .success-cta-sub{
-  max-width:580px;
+  max-width:500px;
   color:var(--ink-dim);
-  font-size:17px;
-  line-height:1.7;
-  margin-bottom:48px;
+  font-size:15px;
+  line-height:1.65;
+  margin-bottom:44px;
 }
 .success-cta-btn{
   display:inline-flex;
