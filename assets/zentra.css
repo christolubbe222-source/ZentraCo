@@ -919,9 +919,11 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
 /* ── SUCCESS STORY CTA ── */
 .success-cta{
   position:relative;
-  padding:100px 0 90px;
+  padding:calc(5.24vw + 80px) 0 90px;
   text-align:center;
   overflow:hidden;
+  /* angled top matches testimonials block skewY(3deg) bottom edge */
+  clip-path:polygon(0 0, 100% 5.24vw, 100% 100%, 0 100%);
   /* fogged cracked glass — transparent so lightning shows through */
   background:rgba(6,6,6,.72);
   backdrop-filter:blur(3px);
