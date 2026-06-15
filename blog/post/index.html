@@ -72,6 +72,16 @@ img{max-width:100%;display:block}
 .p-dfoot .socials a{color:rgba(232,228,216,.58);transition:color .3s}
 .p-dfoot .socials a:hover{color:#4a7eff}
 
+/* ── DRAWER: SERVICES GROUP ── */
+.p-dnav-group{margin:4px 0}
+.p-dnav-label{display:flex;align-items:center;gap:10px;font-family:'Inter',system-ui,sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(232,228,216,.32);padding:20px 0 4px}
+.p-dnav-label .dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:#4a7eff}
+.p-dnav-sub{list-style:none;display:flex;flex-direction:column;gap:0}
+.p-dnav-sub li a{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:13px 0 13px 18px;border-bottom:1px solid rgba(232,228,216,.08);font-family:'Inter',system-ui,sans-serif;font-size:clamp(16px,2vw,22px);font-weight:300;line-height:1.25;color:rgba(232,228,216,.58);transition:color .3s,padding-left .4s}
+.p-dnav-sub li a .arr{display:inline-block;opacity:0;transform:translateX(-10px);transition:opacity .3s,transform .3s;color:#4a7eff;font-size:14px;flex:none}
+.p-dnav-sub li a:hover{color:#4a7eff;padding-left:28px}
+.p-dnav-sub li a:hover .arr{opacity:1;transform:translateX(0)}
+
 /* ── POST PAGE ── */
 .p-page{padding-top:82px}
 .p-loading{display:flex;align-items:center;justify-content:center;min-height:70vh;font-family:'Anton','Impact',sans-serif;font-size:28px;text-transform:uppercase;color:rgba(26,26,26,.3);letter-spacing:-.01em}
@@ -168,11 +178,21 @@ img{max-width:100%;display:block}
     <li><a href="/"><span><span class="num">01 &nbsp;</span>Home</span><span class="arr">→</span></a></li>
     <li><a href="/services/electrician"><span><span class="num">02 &nbsp;</span>For Electricians</span><span class="arr">→</span></a></li>
     <li><a href="/services/solar"><span><span class="num">03 &nbsp;</span>For Solar Pros</span><span class="arr">→</span></a></li>
-    <li><a href="/services/growth-systems"><span><span class="num">04 &nbsp;</span>Growth Systems</span><span class="arr">→</span></a></li>
-    <li><a href="/services/marketing"><span><span class="num">05 &nbsp;</span>Marketing</span><span class="arr">→</span></a></li>
-    <li><a href="/blog"><span><span class="num">06 &nbsp;</span>Blog</span><span class="arr">→</span></a></li>
-    <li><a href="/faq"><span><span class="num">07 &nbsp;</span>FAQ</span><span class="arr">→</span></a></li>
-    <li><a href="/book-a-call"><span><span class="num">08 &nbsp;</span>Book a call</span><span class="arr">→</span></a></li>
+  </ul>
+  <div class="p-dnav-group">
+    <p class="p-dnav-label"><span class="dot"></span>Services</p>
+    <ul class="p-dnav-sub">
+      <li><a href="/services/growth-systems"><span>Website Design &amp; Development</span><span class="arr">→</span></a></li>
+      <li><a href="/services/seo-electricians"><span>SEO for Electricians</span><span class="arr">→</span></a></li>
+      <li><a href="/services/seo-solar"><span>SEO for Solar Pro's</span><span class="arr">→</span></a></li>
+      <li><a href="/services/marketing"><span>Ads &amp; Marketing for Electricians</span><span class="arr">→</span></a></li>
+      <li><a href="/services/marketing-solar"><span>Ads &amp; Marketing for Solar Pro's</span><span class="arr">→</span></a></li>
+    </ul>
+  </div>
+  <ul class="p-dnav">
+    <li><a href="/blog"><span><span class="num">04 &nbsp;</span>Blog</span><span class="arr">→</span></a></li>
+    <li><a href="/faq"><span><span class="num">05 &nbsp;</span>FAQ</span><span class="arr">→</span></a></li>
+    <li><a href="/book-a-call"><span><span class="num">06 &nbsp;</span>Book a call</span><span class="arr">→</span></a></li>
   </ul>
   <div class="p-dfoot">
     <span>Zentra Co &middot; Est. 2026</span>
@@ -205,11 +225,16 @@ img{max-width:100%;display:block}
     </div>
   </div>
   <div class="p-fcol">
-    <h4 class="p-fcol-head">Infrastructure</h4>
+    <h4 class="p-fcol-head">Services</h4>
     <ul>
-      <li><a href="/#manifesto">Our Philosophy</a></li>
-      <li><a href="/services/growth-systems">Growth Systems</a></li>
-      <li><a href="/services/marketing">Marketing</a></li>
+      <li><a href="/services/electrician">For Electricians</a></li>
+      <li><a href="/services/solar">For Solar Pros</a></li>
+      <li><a href="/services/growth-systems">Website Design &amp; Development</a></li>
+      <li><a href="/services/seo-electricians">SEO for Electricians</a></li>
+      <li><a href="/services/seo-solar">SEO for Solar Pro's</a></li>
+      <li><a href="/services/marketing">Ads &amp; Marketing for Electricians</a></li>
+      <li><a href="/services/marketing-solar">Ads &amp; Marketing for Solar Pro's</a></li>
+      <li><a href="/case-studies">Case Studies</a></li>
       <li><a href="/blog">Blog</a></li>
     </ul>
   </div>

@@ -9,8 +9,11 @@ Zentra Co is an affordable, results-focused alternative to traditional web desig
 - [Home](https://zentra-co.com/): Overview of web design and AI automation for electricians and solar pros
 - [For Electricians](https://zentra-co.com/services/electrician): Web design, AI automation, and lead generation built specifically for electrical contractors
 - [For Solar Pros](https://zentra-co.com/services/solar): Web design, AI automation, and lead generation built specifically for solar companies and installers
-- [Growth Systems](https://zentra-co.com/services/growth-systems): Full AI growth system builds combining websites, AI receptionists, and automated follow-up
-- [Marketing](https://zentra-co.com/services/marketing): Google Ads, Meta Ads, local SEO, and landing pages for electricians and solar companies
+- [Website Design & Development](https://zentra-co.com/services/growth-systems): Full AI growth system builds combining websites, AI receptionists, and automated follow-up
+- [SEO for Electricians](https://zentra-co.com/services/seo-electricians): Local SEO, Google Business Profile, and on-page optimization for electrical contractors
+- [SEO for Solar Pros](https://zentra-co.com/services/seo-solar): Local SEO, Google Business Profile, and on-page optimization for solar installers
+- [Ads & Marketing for Electricians](https://zentra-co.com/services/marketing): Google Ads, Meta Ads, and retargeting for electrical contractors, tracked to the booked job
+- [Ads & Marketing for Solar Pros](https://zentra-co.com/services/marketing-solar): Google Ads, Meta Ads, and retargeting for solar installers, tracked to the signed install
 - [FAQ](https://zentra-co.com/faq): Answers on pricing, timelines, AI receptionists, and how Zentra Co works
 - [Case Studies](https://zentra-co.com/case-studies): Real results from electrical and solar contractor builds
 - [Blog](https://zentra-co.com/blog): SEO and AEO articles on web design, AI automation, marketing, and lead generation for electrical and solar contractors
