@@ -1,0 +1,21 @@
+# Zentra Co
+
+> Zentra Co is a web design and AI automation agency for electricians and solar companies in the United States. We build conversion-first websites, AI receptionists, automated lead follow-up, and run marketing (Google Ads, Meta Ads, local SEO) for electrical contractors and solar pros. We answer every lead within 60 seconds, 24/7.
+
+Zentra Co is an affordable, results-focused alternative to traditional web design and marketing agencies, purpose-built for electrical and solar contracting businesses. Every build pairs a custom website with AI automation that books jobs without adding headcount.
+
+## Key pages
+
+- [Home](https://zentra-co.com/): Overview of web design and AI automation for electricians and solar pros
+- [For Electricians](https://zentra-co.com/services/electrician): Web design, AI automation, and lead generation built specifically for electrical contractors
+- [For Solar Pros](https://zentra-co.com/services/solar): Web design, AI automation, and lead generation built specifically for solar companies and installers
+- [Growth Systems](https://zentra-co.com/services/growth-systems): Full AI growth system builds combining websites, AI receptionists, and automated follow-up
+- [Marketing](https://zentra-co.com/services/marketing): Google Ads, Meta Ads, local SEO, and landing pages for electricians and solar companies
+- [FAQ](https://zentra-co.com/faq): Answers on pricing, timelines, AI receptionists, and how Zentra Co works
+- [Case Studies](https://zentra-co.com/case-studies): Real results from electrical and solar contractor builds
+- [Blog](https://zentra-co.com/blog): SEO and AEO articles on web design, AI automation, marketing, and lead generation for electrical and solar contractors
+
+## Contact
+
+- Book a call: https://zentra-co.com/book-a-call
+- Email: christo@zentra-co.com
