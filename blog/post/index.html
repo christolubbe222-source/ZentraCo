@@ -63,21 +63,23 @@ img{max-width:100%;display:block}
 .p-dclose{width:36px;height:36px;border-radius:50%;border:1px solid rgba(232,228,216,.16);display:flex;align-items:center;justify-content:center;color:#e8e4d8;font-size:18px;transition:border-color .3s,color .3s}
 .p-dclose:hover{border-color:#4a7eff;color:#4a7eff}
 .p-dnav{list-style:none;display:flex;flex-direction:column;gap:4px}
-.p-dnav li a{display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:22px 0;border-bottom:1px solid rgba(232,228,216,.08);font-family:'Anton','Impact',sans-serif;font-size:clamp(36px,5vw,54px);font-weight:400;line-height:1;color:#e8e4d8;transition:color .3s,padding-left .5s}
-.p-dnav li a:hover{color:#4a7eff;padding-left:14px}
-.p-dnav .num{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.2em;color:rgba(232,228,216,.32);font-weight:400}
+.p-dnav li a,.p-dnav-label{display:flex;align-items:baseline;justify-content:space-between;gap:24px;width:100%;margin:0;padding:18px 0;border:none;border-bottom:1px solid rgba(232,228,216,.08);background:none;font-family:'Anton','Impact',sans-serif;font-size:clamp(24px,3.2vw,36px);font-weight:400;line-height:1.15;color:#e8e4d8;transition:color .3s,padding-left .5s;text-align:left;cursor:pointer}
+.p-dnav li a:hover,.p-dnav-label:hover{color:#4a7eff;padding-left:14px}
+.p-dnav .num,.p-dnav-label .num{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.2em;color:rgba(232,228,216,.32);font-weight:400}
 .p-dnav .arr{color:#4a7eff;font-size:18px}
+.p-dacc-icon{display:inline-flex;flex:none;color:#4a7eff;transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+.p-dacc-icon svg{width:18px;height:18px;display:block}
+.p-dnav-group.open .p-dacc-icon{transform:rotate(180deg)}
 .p-dfoot{margin-top:auto;padding-top:40px;border-top:1px solid rgba(232,228,216,.08);display:flex;justify-content:space-between;align-items:center;font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(232,228,216,.32)}
 .p-dfoot .socials{display:flex;gap:16px}
 .p-dfoot .socials a{color:rgba(232,228,216,.58);transition:color .3s}
 .p-dfoot .socials a:hover{color:#4a7eff}
 
-/* ── DRAWER: SERVICES GROUP ── */
-.p-dnav-group{margin:4px 0}
-.p-dnav-label{display:flex;align-items:center;gap:10px;font-family:'Inter',system-ui,sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(232,228,216,.32);padding:20px 0 4px}
-.p-dnav-label .dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:#4a7eff}
-.p-dnav-sub{list-style:none;display:flex;flex-direction:column;gap:0}
-.p-dnav-sub li a{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:13px 0 13px 18px;border-bottom:1px solid rgba(232,228,216,.08);font-family:'Inter',system-ui,sans-serif;font-size:clamp(16px,2vw,22px);font-weight:300;line-height:1.25;color:rgba(232,228,216,.58);transition:color .3s,padding-left .4s}
+/* ── DRAWER: SERVICES GROUP (accordion) ── */
+.p-dnav-group{margin:0}
+.p-dnav-sub{list-style:none;display:flex;flex-direction:column;gap:0;max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.2,.7,.2,1)}
+.p-dnav-group.open .p-dnav-sub{max-height:600px}
+.p-dnav-sub li a{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:12px 0 12px 18px;border-bottom:1px solid rgba(232,228,216,.08);font-family:'Inter',system-ui,sans-serif;font-size:clamp(14px,1.8vw,18px);font-weight:300;line-height:1.3;color:rgba(232,228,216,.58);transition:color .3s,padding-left .4s}
 .p-dnav-sub li a .arr{display:inline-block;opacity:0;transform:translateX(-10px);transition:opacity .3s,transform .3s;color:#4a7eff;font-size:14px;flex:none}
 .p-dnav-sub li a:hover{color:#4a7eff;padding-left:28px}
 .p-dnav-sub li a:hover .arr{opacity:1;transform:translateX(0)}
@@ -180,8 +182,8 @@ img{max-width:100%;display:block}
     <li><a href="/services/solar"><span><span class="num">03 &nbsp;</span>For Solar Pros</span><span class="arr">→</span></a></li>
   </ul>
   <div class="p-dnav-group">
-    <p class="p-dnav-label"><span class="dot"></span>Services</p>
-    <ul class="p-dnav-sub">
+    <button class="p-dnav-label" type="button" aria-expanded="false" aria-controls="pServicesSub"><span><span class="num">— &nbsp;</span>Services</span><span class="p-dacc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
+    <ul class="p-dnav-sub" id="pServicesSub">
       <li><a href="/services/growth-systems"><span>Website Design &amp; Development</span><span class="arr">→</span></a></li>
       <li><a href="/services/seo-electricians"><span>SEO for Electricians</span><span class="arr">→</span></a></li>
       <li><a href="/services/seo-solar"><span>SEO for Solar Pro's</span><span class="arr">→</span></a></li>
@@ -343,6 +345,15 @@ document.getElementById('closeBtn')?.addEventListener('click',closeD);
 bd?.addEventListener('click',closeD);
 drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeD));
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeD()});
+
+// Services accordion
+document.querySelectorAll('.p-dnav-group').forEach(group=>{
+  const toggle=group.querySelector('.p-dnav-label');
+  toggle?.addEventListener('click',()=>{
+    const open=group.classList.toggle('open');
+    toggle.setAttribute('aria-expanded',String(open));
+  });
+});
 </script>
 <script>!function(){var e=document.createElement("div");e.id="callhippo-widget-container",document.getElementsByTagName("body")[0].appendChild(e),window.USERID="69f3dbbd044a41a8216ed622",document.getElementsByTagName("body")[0].appendChild(e),window.NUMBERID="6a188c436f9348d4b06c0984",function(){var e=document.createElement("script");e.type="text/javascript",e.async=!0,e.src="https://d1x9dsge91xf6g.cloudfront.net/callhippo/files/ch-webcall.min.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()}();</script>
 </body>

@@ -128,8 +128,8 @@
     <li><a href="/services/solar"><span><span class="num">03 &nbsp;</span>For Solar Pros</span><span class="arr">→</span></a></li>
   </ul>
   <div class="drawer-nav-group">
-    <p class="drawer-nav-label"><span class="dot"></span>Services</p>
-    <ul class="drawer-nav-sub">
+    <button class="drawer-nav-label" type="button" aria-expanded="false" aria-controls="servicesSub"><span><span class="num">— &nbsp;</span>Services</span><span class="drawer-acc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
+    <ul class="drawer-nav-sub" id="servicesSub">
       <li><a href="/services/growth-systems"><span>Website Design &amp; Development</span><span class="arr">→</span></a></li>
       <li><a href="/services/seo-electricians"><span>SEO for Electricians</span><span class="arr">→</span></a></li>
       <li><a href="/services/seo-solar"><span>SEO for Solar Pro's</span><span class="arr">→</span></a></li>
@@ -189,7 +189,12 @@
           </div>
         </div>
         <div class="sub-hero-cta">
-          <button class="cta-pill" data-open-modal><span class="dot"></span><span>Book the call</span></button>
+          <button class="cta-pill cta-pill-lg" data-open-modal><span class="dot"></span><span>Book the call</span></button>
+          <div class="cred-badges">
+            <span class="cred-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>60-second lead response</span>
+            <span class="cred-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>No long-term contracts</span>
+            <span class="cred-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>Built for electricians</span>
+          </div>
         </div>
       </div>
       <div class="sub-hero-visual glass">
@@ -218,12 +223,15 @@
 
         <h2 class="display sec-title">Referrals are great. They're also <em>not a strategy</em>.</h2>
       </div>
-      <div class="two-col">
-        <div class="prose">
-          <p>Most electrical businesses are one slow quarter from pain — lean crews, word-of-mouth, and a pipeline that runs dry the moment referrals dip. Paid ads flip that into a <strong>predictable, measurable</strong> source of jobs: you know what a booked call costs, and you can turn it up the moment a truck frees up.</p>
+      <div class="point-grid">
+        <div class="point-card">
+          <div class="tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></div>
+          <h3>Predictable, on demand</h3>
+          <p>Most electrical businesses are one slow quarter from pain — lean crews and a pipeline that runs dry the moment referrals dip. Ads flip that into a <strong>predictable, measurable</strong> source of jobs you can turn up the moment a truck frees up.</p>
         </div>
-        <div class="prose">
-          <h3>What happens when you <em>don't</em></h3>
+        <div class="point-card">
+          <div class="tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <h3>What happens when you don't</h3>
           <p>You compete on price, you can't scale past word-of-mouth, and one quiet month or one lost referral partner wobbles the whole business. A marketing engine is insurance against all of it.</p>
         </div>
       </div>

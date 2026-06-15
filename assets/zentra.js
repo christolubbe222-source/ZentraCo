@@ -42,6 +42,15 @@ drawerBackdrop?.addEventListener('click', closeDrawer);
 drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { if (!a.hasAttribute('data-open-modal')) closeDrawer(); }));
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
 
+/* ── DRAWER: SERVICES ACCORDION ── */
+document.querySelectorAll('.drawer-nav-group').forEach(group => {
+  const toggle = group.querySelector('.drawer-nav-label');
+  toggle?.addEventListener('click', () => {
+    const open = group.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+});
+
 /* ── LIGHTNING CANVAS ── */
 (() => {
   const c = document.getElementById('stellar');

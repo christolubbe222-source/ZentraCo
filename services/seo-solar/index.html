@@ -128,8 +128,8 @@
     <li><a href="/services/solar"><span><span class="num">03 &nbsp;</span>For Solar Pros</span><span class="arr">→</span></a></li>
   </ul>
   <div class="drawer-nav-group">
-    <p class="drawer-nav-label"><span class="dot"></span>Services</p>
-    <ul class="drawer-nav-sub">
+    <button class="drawer-nav-label" type="button" aria-expanded="false" aria-controls="servicesSub"><span><span class="num">— &nbsp;</span>Services</span><span class="drawer-acc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
+    <ul class="drawer-nav-sub" id="servicesSub">
       <li><a href="/services/growth-systems"><span>Website Design &amp; Development</span><span class="arr">→</span></a></li>
       <li><a href="/services/seo-electricians"><span>SEO for Electricians</span><span class="arr">→</span></a></li>
       <li><a href="/services/seo-solar"><span>SEO for Solar Pro's</span><span class="arr">→</span></a></li>
@@ -189,7 +189,12 @@
           </div>
         </div>
         <div class="sub-hero-cta">
-          <a href="/book-a-call" class="cta-pill"><span class="dot"></span><span>Book the call</span></a>
+          <a href="/book-a-call" class="cta-pill cta-pill-lg"><span class="dot"></span><span>Book the call</span></a>
+          <div class="cred-badges">
+            <span class="cred-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>60-second lead response</span>
+            <span class="cred-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>No long-term contracts</span>
+            <span class="cred-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>Built for solar pros</span>
+          </div>
         </div>
       </div>
       <div class="sub-hero-visual glass">
@@ -218,13 +223,16 @@
 
         <h2 class="display sec-title">Paid ads stop the moment <em>you stop paying</em>.</h2>
       </div>
-      <div class="two-col">
-        <div class="prose">
-          <p>Every dollar spent on ads disappears the moment you stop paying. SEO is different — it's a <strong>compounding asset</strong>. A page that ranks for "solar installer near me" in your area keeps generating quote requests for years with no per-click cost. With solar's longer sales cycles, the businesses dominating local search today started building months ago.</p>
+      <div class="point-grid">
+        <div class="point-card">
+          <div class="tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+          <h3>A compounding asset</h3>
+          <p>Every dollar on ads disappears the moment you stop paying. A page that ranks for <strong>"solar installer near me"</strong> keeps generating quote requests for years with no per-click cost — with solar's longer sales cycles, today's leaders started months ago.</p>
         </div>
-        <div class="prose">
-          <h3>What happens when you <em>don't</em></h3>
-          <p>Your competitors show up in the map pack and you don't. Every search for "solar installer near me" or "solar panel cost" goes to someone else first, and you're stuck paying for every lead through ads while they get free traffic on top.</p>
+        <div class="point-card">
+          <div class="tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <h3>What happens when you don't</h3>
+          <p>Your competitors show up in the map pack and you don't. Every search for "solar installer near me" or "solar panel cost" goes to someone else first — and you pay for every lead through ads while they get free traffic on top.</p>
         </div>
       </div>
     </div>
