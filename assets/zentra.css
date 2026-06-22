@@ -785,26 +785,34 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
 }
 .portfolio-card:hover{transform:translateY(-6px);border-color:var(--accent)}
 
-.portfolio-card-visual{position:relative;width:100%;padding-top:62%;margin-bottom:24px}
-.mockup-laptop{position:absolute;left:0;right:6%;top:0;bottom:10%}
-.mockup-laptop-screen{
-  position:absolute;inset:0;background:#0b0b0d;
-  border:7px solid #1d1d21;border-bottom-width:11px;border-radius:12px;
-  overflow:hidden;box-shadow:0 40px 70px -30px rgba(0,0,0,.6);
+.portfolio-card-visual{position:relative;width:100%;padding-top:64%;margin-bottom:24px}
+
+/* iMac-style monitor — sits back/right, Apple-silver chrome */
+.mockup-monitor{position:absolute;right:0;top:2%;width:72%;display:flex;flex-direction:column;align-items:center}
+.mockup-monitor-screen{
+  position:relative;width:100%;padding-top:60%;
+  background:#0b0b0d;border:9px solid #eceef0;border-radius:10px;
+  overflow:hidden;box-shadow:0 35px 60px -25px rgba(0,0,0,.65);
 }
-.mockup-chrome{height:16px;background:#15151a;display:flex;align-items:center;gap:4px;padding:0 8px;flex:none;position:relative;z-index:1}
-.mockup-chrome span{width:5px;height:5px;border-radius:50%;background:#34343b}
-.mockup-page{position:absolute;inset:16px 0 0;overflow:hidden;background:#0b0b0d}
-.mockup-page img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
-.mockup-laptop-base{position:absolute;left:-8%;right:-8%;bottom:-7%;height:9%;background:linear-gradient(#2a2a30,#16161a);border-radius:0 0 8px 8px}
-.mockup-laptop-base::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:26%;height:60%;background:#0b0b0d;border-radius:0 0 4px 4px}
-.mockup-phone{
-  position:absolute;right:0;bottom:-2%;width:22%;aspect-ratio:9/18.5;
-  background:#28282e;border:4px solid #28282e;border-radius:20px;
-  overflow:hidden;box-shadow:0 30px 50px -20px rgba(0,0,0,.6),0 0 0 1px rgba(232,228,216,.08);
+.mockup-monitor-screen img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+.mockup-monitor-stand{width:9%;aspect-ratio:9/7;flex:none;background:linear-gradient(#dcdde0,#bcbdc2)}
+.mockup-monitor-base{width:32%;aspect-ratio:8/1;flex:none;background:linear-gradient(#e6e7ea,#c7c8cd);border-radius:999px;margin-top:-1px;box-shadow:0 4px 10px rgba(0,0,0,.35)}
+
+/* laptop — sits front/left, overlapping the monitor's stand, slight tilt for depth */
+.mockup-laptop2{position:absolute;left:0;bottom:4%;width:48%;transform:rotate(-2deg);transform-origin:bottom left}
+.mockup-laptop2-screen{
+  position:relative;width:100%;padding-top:62%;
+  background:#0b0b0d;border:7px solid #eceef0;border-bottom:none;border-radius:8px 8px 0 0;
+  overflow:hidden;box-shadow:0 25px 45px -20px rgba(0,0,0,.6);
 }
-.mockup-phone-screen{position:absolute;inset:0;overflow:hidden;background:#0b0b0d}
-.mockup-phone-screen img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+.mockup-laptop2-screen img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+.mockup-laptop2-base{
+  position:relative;width:100%;aspect-ratio:100/7;
+  background:linear-gradient(#f2f3f5,#d6d7dc);
+  border-radius:0 0 7px 7px;
+  box-shadow:0 10px 20px -8px rgba(0,0,0,.4);
+}
+.mockup-laptop2-base::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:20%;height:50%;background:#aeb0b6;border-radius:0 0 3px 3px}
 
 .portfolio-card-info{display:flex;flex-direction:column;gap:6px}
 .portfolio-card-loc{font-family:var(--mono);font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-mute)}
