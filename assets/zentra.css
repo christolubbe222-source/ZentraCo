@@ -306,7 +306,9 @@ html[data-theme="light"] .glass{
 .manifesto-band{
   position:relative;
   background:#f0ece3;
-  clip-path:polygon(0 80px, 100% 0, 100% calc(100% - 80px), 0 100%);
+  /* same 3deg angle as the testimonials block's skewY(3deg), expressed as
+     5.24vw (tan(3deg) * 100vw) so both read as the same tilt */
+  clip-path:polygon(0 0, 100% 5.24vw, 100% 100%, 0 calc(100% - 5.24vw));
   padding:170px 48px;
   text-align:center;
   z-index:3;
@@ -739,23 +741,6 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
 
 /* ── PORTFOLIO ── */
 .portfolio{background:var(--bg-2);padding:150px 48px}
-
-/* seam border: thin line with a tab/dot straddling it — distinct from the
-   skewY (testimonials) and clip-path (stats/cta) dividers used elsewhere,
-   but built from the same line color + accent-dot vocabulary as .eyebrow */
-.portfolio-seam{position:absolute;left:0;right:0;height:1px;background:var(--line-2);z-index:3;display:flex;align-items:center;justify-content:center}
-.portfolio-seam-top{top:0}
-.portfolio-seam-bottom{bottom:0}
-.portfolio-seam-tab{
-  display:inline-flex;align-items:center;gap:8px;
-  background:var(--bg-2);border:1px solid var(--line-2);border-radius:999px;
-  padding:9px 22px 9px 16px;
-  font-family:var(--mono);font-size:10px;letter-spacing:0.22em;text-transform:uppercase;
-  color:var(--accent);white-space:nowrap;
-}
-.portfolio-seam-tab::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent-glow);flex:none}
-.portfolio-seam-dot{width:9px;height:9px;border-radius:50%;background:var(--bg-2);border:1px solid var(--accent);box-shadow:0 0 16px var(--accent-glow)}
-
 .portfolio .section-intro{margin-bottom:56px}
 
 .portfolio-carousel{display:flex;align-items:center;gap:20px;margin-bottom:28px}
@@ -1200,7 +1185,6 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
   }
   .portfolio-arrow-prev{left:2px}
   .portfolio-arrow-next{right:2px}
-  .portfolio-seam-tab{font-size:9px;padding:8px 16px 8px 14px}
 }
 
 
