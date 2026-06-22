@@ -31,6 +31,44 @@ document.getElementById('diagnosisForm')?.addEventListener('submit', e => {
 /* ── TICKER DUPLICATION (seamless loop) ── */
 document.querySelectorAll('.ticker-track').forEach(t => { t.innerHTML += t.innerHTML; });
 
+/* ── PORTFOLIO CAROUSEL ── */
+(() => {
+  const track = document.querySelector('[data-portfolio-track]');
+  if (!track) return;
+  const prevBtn = document.querySelector('[data-portfolio-prev]');
+  const nextBtn = document.querySelector('[data-portfolio-next]');
+  const dotsWrap = document.querySelector('[data-portfolio-dots]');
+  const cards = Array.from(track.children);
+
+  cards.forEach((card, i) => {
+    const dot = document.createElement('button');
+    dot.type = 'button';
+    dot.className = 'portfolio-dot';
+    dot.setAttribute('aria-label', `Go to project ${i + 1}`);
+    dot.addEventListener('click', () => card.scrollIntoView({behavior:'smooth', inline:'start', block:'nearest'}));
+    dotsWrap.appendChild(dot);
+  });
+  const dots = Array.from(dotsWrap.children);
+
+  function step() {
+    const gap = parseFloat(getComputedStyle(track).gap) || 0;
+    return cards[0].getBoundingClientRect().width + gap;
+  }
+  prevBtn?.addEventListener('click', () => track.scrollBy({left: -step(), behavior:'smooth'}));
+  nextBtn?.addEventListener('click', () => track.scrollBy({left: step(), behavior:'smooth'}));
+
+  function syncUI() {
+    const max = track.scrollWidth - track.clientWidth - 4;
+    prevBtn?.classList.toggle('is-disabled', track.scrollLeft <= 4);
+    nextBtn?.classList.toggle('is-disabled', track.scrollLeft >= max);
+    const idx = Math.round(track.scrollLeft / step());
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  }
+  track.addEventListener('scroll', () => requestAnimationFrame(syncUI), {passive:true});
+  window.addEventListener('resize', syncUI);
+  syncUI();
+})();
+
 /* ── DRAWER NAV ── */
 const drawer = document.getElementById('drawer');
 const drawerBackdrop = document.getElementById('drawerBackdrop');
