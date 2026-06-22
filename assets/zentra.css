@@ -792,14 +792,10 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
   border:7px solid #1d1d21;border-bottom-width:11px;border-radius:12px;
   overflow:hidden;box-shadow:0 40px 70px -30px rgba(0,0,0,.6);
 }
-.mockup-chrome{height:16px;background:#15151a;display:flex;align-items:center;gap:4px;padding:0 8px}
+.mockup-chrome{height:16px;background:#15151a;display:flex;align-items:center;gap:4px;padding:0 8px;flex:none;position:relative;z-index:1}
 .mockup-chrome span{width:5px;height:5px;border-radius:50%;background:#34343b}
-.mockup-page{position:absolute;inset:16px 0 0;background:linear-gradient(165deg,color-mix(in oklch,var(--accent) 16%,#0b0b0d),#0b0b0d 65%);padding:10% 8%}
-.mp-nav{height:6%;width:40%;background:rgba(232,228,216,.08);border-radius:3px;margin-bottom:14%}
-.mp-hero-line{height:8%;background:rgba(232,228,216,.16);border-radius:3px;margin-bottom:10%}
-.mp-hero-line--lg{width:80%}
-.mp-hero-line--sm{width:55%;background:rgba(232,228,216,.1)}
-.mp-hero-btn{width:30%;height:11%;border-radius:5px;background:var(--accent);opacity:.85;margin-top:8%}
+.mockup-page{position:absolute;inset:16px 0 0;overflow:hidden;background:#0b0b0d}
+.mockup-page img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
 .mockup-laptop-base{position:absolute;left:-8%;right:-8%;bottom:-7%;height:9%;background:linear-gradient(#2a2a30,#16161a);border-radius:0 0 8px 8px}
 .mockup-laptop-base::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:26%;height:60%;background:#0b0b0d;border-radius:0 0 4px 4px}
 .mockup-phone{
@@ -807,10 +803,8 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
   background:#28282e;border:4px solid #28282e;border-radius:20px;
   overflow:hidden;box-shadow:0 30px 50px -20px rgba(0,0,0,.6),0 0 0 1px rgba(232,228,216,.08);
 }
-.mockup-phone-screen{position:absolute;inset:0;background:linear-gradient(180deg,color-mix(in oklch,var(--accent) 32%,#0b0b0d),#0b0b0d 75%);padding:14% 10%}
-.mp-nav--phone{width:50%;margin-bottom:18%}
-.mp-hero--phone .mp-hero-line{width:80%}
-.mp-hero-btn--phone{width:55%;height:9%}
+.mockup-phone-screen{position:absolute;inset:0;overflow:hidden;background:#0b0b0d}
+.mockup-phone-screen img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
 
 .portfolio-card-info{display:flex;flex-direction:column;gap:6px}
 .portfolio-card-loc{font-family:var(--mono);font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-mute)}
@@ -1185,8 +1179,19 @@ input[type="range"]{width:100%;accent-color:var(--accent)}
   .scroll-hint span{display:none}
   .scroll-hint{bottom:0}
   .scroll-hint::after{height:80px}
-  .portfolio-card{width:84vw}
-  .portfolio-carousel{gap:12px}
+  /* arrows float over the track instead of sharing the row with it — at this
+     width, reserving ~90px for two inline arrow buttons left the track (and
+     therefore every card sized off it) squeezed down to a sliver */
+  .portfolio-carousel{position:relative;gap:0}
+  .portfolio-track{width:100%}
+  .portfolio-card{width:88%}
+  .portfolio-arrow{
+    position:absolute;top:34%;z-index:5;
+    width:38px;height:38px;
+    background:rgba(10,10,12,.65);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  }
+  .portfolio-arrow-prev{left:2px}
+  .portfolio-arrow-next{right:2px}
   .portfolio-seam-tab{font-size:9px;padding:8px 16px 8px 14px}
 }
 
